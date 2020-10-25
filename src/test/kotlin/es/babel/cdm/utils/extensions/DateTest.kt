@@ -18,7 +18,10 @@ import java.util.Date
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
+@RunWith(RobolectricTestRunner::class)
 class DateTest() {
     private val date = Date(624288645000)
 
@@ -26,9 +29,9 @@ class DateTest() {
     fun toStringIsRight() {
         assertEquals("1989", date.toString(YEAR))
         assertEquals("10", date.toString(MONTH))
-        assertEquals("octubre", date.toString(MONTH_OF_THE_YEAR))
+        assertEquals("October", date.toString(MONTH_OF_THE_YEAR))
         assertEquals("13", date.toString(DAY))
-        assertEquals("viernes", date.toString(DAY_OF_THE_WEEK))
+        assertEquals("Friday", date.toString(DAY_OF_THE_WEEK))
         assertEquals("14", date.toString(HOUR))
         assertEquals("30", date.toString(MINUTE))
         assertEquals("45", date.toString(SECOND))
@@ -46,9 +49,9 @@ class DateTest() {
     fun toStringIsWrong() {
         assertNotEquals("2000", date.toString(YEAR))
         assertNotEquals("05", date.toString(MONTH))
-        assertNotEquals("mayo", date.toString(MONTH_OF_THE_YEAR))
+        assertNotEquals("May", date.toString(MONTH_OF_THE_YEAR))
         assertNotEquals("25", date.toString(DAY))
-        assertNotEquals("jueves", date.toString(DAY_OF_THE_WEEK))
+        assertNotEquals("Thursday", date.toString(DAY_OF_THE_WEEK))
         assertNotEquals("20", date.toString(HOUR))
         assertNotEquals("15", date.toString(MINUTE))
         assertNotEquals("00", date.toString(SECOND))
@@ -84,12 +87,12 @@ class DateTest() {
 
     @Test
     fun monthOfTheYearIsRight() {
-        assertEquals("octubre", date.monthOfTheYear())
+        assertEquals("October", date.monthOfTheYear())
     }
 
     @Test
     fun monthOfTheYearIsWrong() {
-        assertNotEquals("mayo", date.monthOfTheYear())
+        assertNotEquals("May", date.monthOfTheYear())
     }
 
     @Test
@@ -104,12 +107,12 @@ class DateTest() {
 
     @Test
     fun dayOfTheWeekIsRight() {
-        assertEquals("viernes", date.dayOfTheWeek())
+        assertEquals("Friday", date.dayOfTheWeek())
     }
 
     @Test
     fun dayOfTheWeekIsWrong() {
-        assertNotEquals("jueves", date.dayOfTheWeek())
+        assertNotEquals("Thursday", date.dayOfTheWeek())
     }
 
     @Test

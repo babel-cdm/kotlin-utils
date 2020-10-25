@@ -5,9 +5,14 @@ import es.babel.cdm.utils.constants.Pattern.FULL_DATE_AND_HOUR
 import es.babel.cdm.utils.constants.TimeZone.UTC
 import java.util.Date
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
+@RunWith(RobolectricTestRunner::class)
 class StringTest {
 
     @Test
@@ -122,5 +127,34 @@ class StringTest {
                     FULL_DATE
                 )
         )
+    }
+
+    @Test
+    fun isValidEmailIsRight() {
+        assertTrue("test@test.com".isValidEmail())
+        assertTrue("a@a.a".isValidEmail())
+        assertTrue("bb@b.b".isValidEmail())
+        assertTrue("ccc@cc.ccc".isValidEmail())
+    }
+
+    @Test
+    fun isValidEmailIsWrong() {
+        assertFalse("".isValidEmail())
+        assertFalse("a".isValidEmail())
+        assertFalse("b@b".isValidEmail())
+        assertFalse("cc.ccc".isValidEmail())
+    }
+
+    @Test
+    fun isValidPasswordIsRight() {
+        assertTrue("1234".isValidPassword())
+        assertTrue("pass".isValidPassword())
+        assertTrue("pass1234".isValidPassword())
+        assertTrue("\$Pass1234".isValidPassword())
+    }
+
+    @Test
+    fun isValidPasswordIsWrong() {
+        assertFalse("".isValidPassword())
     }
 }

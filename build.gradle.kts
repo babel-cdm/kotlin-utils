@@ -10,6 +10,7 @@ import dependencies.Dependencies.Retrofit
 import dependencies.Dependencies.TIMBER
 import dependencies.TestDependencies.JUNIT
 import dependencies.TestDependencies.MOCKITO
+import dependencies.TestDependencies.ROBOLECTRIC
 
 plugins {
     id(Plugins.ANDROID_LIBRARY)
@@ -51,6 +52,8 @@ android {
         map { sourceSet -> sourceSet.java.srcDir("src/${sourceSet.name}/kotlin") }
     }
 
+    testOptions.unitTests.isIncludeAndroidResources = true
+
     lintOptions {
         disable("ObsoleteLintCustomCheck")
     }
@@ -71,6 +74,7 @@ dependencies {
     implementation(LOGGING_INTERCEPTOR)
 
     testImplementation(JUNIT)
+    testImplementation(ROBOLECTRIC)
     testImplementation(MOCKITO)
     androidTestImplementation(TEST_RUNNER)
 }
