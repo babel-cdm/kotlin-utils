@@ -1,12 +1,11 @@
 package es.babel.cdm.utils.extensions
 
+import android.util.Patterns
 import es.babel.cdm.utils.constants.TimeZone.UTC
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
-import java.util.TimeZone.getTimeZone
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.TimeZone.getTimeZone
 
 fun String.toDate(inputFormat: String, inputTimeZone: String? = null): Date? =
     kotlin.runCatching {
@@ -21,3 +20,7 @@ fun String.localeStringDateToUtcStringDate(inputFormat: String, outputFormat: St
 
 fun String.utcStringDateToLocaleStringDate(inputFormat: String, outputFormat: String): String? =
     this.toDate(inputFormat, UTC)?.toString(outputFormat)
+
+fun String.isValidEmail() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+fun String.isValidPassword() = this.isNotEmpty()
