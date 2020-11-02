@@ -3,12 +3,12 @@ package es.babel.cdm.utils.extensions
 import android.util.Patterns
 import es.babel.cdm.utils.constants.Date.TimeZone.UTC
 import es.babel.cdm.utils.constants.Validation
-import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import java.util.regex.Pattern
+import timber.log.Timber
 
 fun String.toDate(inputFormat: String, inputTimeZone: String? = null): Date? =
     kotlin.runCatching {
