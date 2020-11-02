@@ -1,13 +1,13 @@
 package es.babel.cdm.utils.extensions
 
-import es.babel.cdm.utils.constants.Pattern.DAY
-import es.babel.cdm.utils.constants.Pattern.DAY_OF_THE_WEEK
-import es.babel.cdm.utils.constants.Pattern.HOUR
-import es.babel.cdm.utils.constants.Pattern.MINUTE
-import es.babel.cdm.utils.constants.Pattern.MONTH
-import es.babel.cdm.utils.constants.Pattern.MONTH_OF_THE_YEAR
-import es.babel.cdm.utils.constants.Pattern.SECOND
-import es.babel.cdm.utils.constants.Pattern.YEAR
+import es.babel.cdm.utils.constants.Date.Pattern.DAY
+import es.babel.cdm.utils.constants.Date.Pattern.DAY_OF_THE_WEEK
+import es.babel.cdm.utils.constants.Date.Pattern.HOUR
+import es.babel.cdm.utils.constants.Date.Pattern.MINUTE
+import es.babel.cdm.utils.constants.Date.Pattern.MONTH
+import es.babel.cdm.utils.constants.Date.Pattern.MONTH_OF_THE_YEAR
+import es.babel.cdm.utils.constants.Date.Pattern.SECOND
+import es.babel.cdm.utils.constants.Date.Pattern.YEAR
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
