@@ -1,6 +1,6 @@
 package es.babel.cdm.utils.extensions
 
-import es.babel.cdm.utils.constants.Index
+import es.babel.cdm.utils.constants.Array.Index
 
 fun Int.previousIndex(): Int = this - Index.PREVIOUS
 
