@@ -1,8 +1,8 @@
 package es.babel.cdm.utils.extensions
 
-import es.babel.cdm.utils.constants.Pattern.FULL_DATE
-import es.babel.cdm.utils.constants.Pattern.FULL_DATE_AND_HOUR
-import es.babel.cdm.utils.constants.TimeZone.UTC
+import es.babel.cdm.utils.constants.Date.Pattern.FULL_DATE
+import es.babel.cdm.utils.constants.Date.Pattern.FULL_DATE_AND_HOUR
+import es.babel.cdm.utils.constants.Date.TimeZone.UTC
 import java.util.Date
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -147,14 +147,21 @@ class StringTest {
 
     @Test
     fun isValidPasswordIsRight() {
-        assertTrue("1234".isValidPassword())
-        assertTrue("pass".isValidPassword())
-        assertTrue("pass1234".isValidPassword())
-        assertTrue("\$Pass1234".isValidPassword())
+        assertTrue("Test1234".isValidPassword())
+        assertTrue("@Test432".isValidPassword())
+        assertTrue("!*Test99".isValidPassword())
+        assertTrue("\$Test1234".isValidPassword())
     }
 
     @Test
     fun isValidPasswordIsWrong() {
         assertFalse("".isValidPassword())
+        assertFalse("test".isValidPassword())
+        assertFalse("TEST".isValidPassword())
+        assertFalse("TEST1234".isValidPassword())
+        assertFalse("test1234".isValidPassword())
+        assertFalse("Test1234$1234!1234".isValidPassword())
+        assertFalse("Test1234)(".isValidPassword())
+        assertFalse("//*Test!".isValidPassword())
     }
 }
