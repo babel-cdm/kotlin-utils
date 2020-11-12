@@ -1,7 +1,9 @@
 package es.babel.cdm.utils.extensions
 
+import android.annotation.SuppressLint
 import android.util.Patterns
 import es.babel.cdm.utils.constants.Date.TimeZone.UTC
+import es.babel.cdm.utils.constants.String.BLANK
 import es.babel.cdm.utils.constants.Validation
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -28,3 +30,8 @@ fun String.isValidEmail() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 fun String.isValidPassword() = Pattern.compile(Validation.Pattern.PASSWORD)
     .matcher(this).matches()
+
+@SuppressLint("DefaultLocale")
+fun String.capitalizeWords() =
+    this.toLowerCase(Locale.getDefault()).split(BLANK)
+        .joinToString(separator = BLANK) { it.capitalize() }

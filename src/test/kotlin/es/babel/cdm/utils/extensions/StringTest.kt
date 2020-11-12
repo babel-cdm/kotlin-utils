@@ -164,4 +164,26 @@ class StringTest {
         assertFalse("Test1234)(".isValidPassword())
         assertFalse("//*Test!".isValidPassword())
     }
+
+    @Test
+    fun capitalizeWordsIsRight() {
+        assertEquals("Test", "test".capitalizeWords())
+        assertEquals("Test", "TEST".capitalizeWords())
+        assertEquals("Test Test", "TEST Test".capitalizeWords())
+        assertEquals("Test Test", "Test TEST".capitalizeWords())
+        assertEquals("Test Test", "TEST TEST".capitalizeWords())
+        assertEquals("@test", "@test".capitalizeWords())
+        assertEquals("@test Test", "@test Test".capitalizeWords())
+    }
+
+    @Test
+    fun capitalizeWordsIsWrong() {
+        assertNotEquals("test", "test".capitalizeWords())
+        assertNotEquals("test", "TEST".capitalizeWords())
+        assertNotEquals("TEST Test", "TEST Test".capitalizeWords())
+        assertNotEquals("Test TEST", "Test TEST".capitalizeWords())
+        assertNotEquals("TEST Test", "TEST TEST".capitalizeWords())
+        assertNotEquals("@Test", "@test".capitalizeWords())
+        assertNotEquals("@Test TEST", "@test Test".capitalizeWords())
+    }
 }
