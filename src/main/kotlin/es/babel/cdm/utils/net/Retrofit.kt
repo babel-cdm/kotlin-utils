@@ -2,6 +2,7 @@ package es.babel.cdm.utils.net
 
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,6 +17,7 @@ class Retrofit {
         private var baseUrl: String = DEFAULT_BASE_URL
         private var ignoreSSL: Boolean = true
         private var interceptors: List<Interceptor> = listOf()
+        private val certificatePinners = mutableListOf<CertificatePinner>()
 
         fun httpLoggingInterceptorLevel(level: HttpLoggingInterceptor.Level) =
             this.also { builder ->
@@ -34,6 +36,10 @@ class Retrofit {
             builder.interceptors = interceptors
         }
 
+        fun certificatePinner(host: String, vararg pins: String) = apply {
+            certificatePinners.add(CertificatePinner.Builder().add(host, *pins).build())
+        }
+
         fun build(): Retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -50,6 +56,7 @@ class Retrofit {
             .client(
                 HttpClient.Builder()
                     .ignoreSSL(ignoreSSL)
+                    .certificatePinners(certificatePinners)
                     .also { builder ->
                         interceptors.forEach { interceptor ->
                             builder.interceptor(interceptor)
