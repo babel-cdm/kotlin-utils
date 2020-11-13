@@ -57,12 +57,7 @@ class Retrofit {
                 HttpClient.Builder()
                     .ignoreSSL(ignoreSSL)
                     .certificatePinners(certificatePinners)
-                    .also { builder ->
-                        interceptors.forEach { interceptor ->
-                            builder.interceptor(interceptor)
-                        }
-                    }
-                    .interceptor(httpLoggingInterceptor)
+                    .interceptors(interceptors + httpLoggingInterceptor)
                     .build()
             )
             .build()

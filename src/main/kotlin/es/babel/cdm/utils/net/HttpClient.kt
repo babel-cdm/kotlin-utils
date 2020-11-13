@@ -32,7 +32,11 @@ class HttpClient {
         private var certificatePinners: MutableList<CertificatePinner> = mutableListOf()
     ) {
         fun ignoreSSL(ignoreSSL: Boolean) = apply { this.ignoreSSL = ignoreSSL }
-        fun interceptor(interceptor: Interceptor) = apply { interceptors.add(interceptor) }
+
+        fun interceptors(interceptors: List<Interceptor>) = apply {
+            this.interceptors.addAll(interceptors)
+        }
+
         fun certificatePinners(certificatePinners: List<CertificatePinner>) = apply {
             this.certificatePinners.addAll(certificatePinners)
         }
