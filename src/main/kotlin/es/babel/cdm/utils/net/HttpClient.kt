@@ -7,6 +7,7 @@ import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
+import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 
@@ -27,11 +28,18 @@ class HttpClient {
             }
 
             override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-        })
+        }),
+        private var certificatePinners: MutableList<CertificatePinner> = mutableListOf()
     ) {
         fun ignoreSSL(ignoreSSL: Boolean) = apply { this.ignoreSSL = ignoreSSL }
-        fun interceptor(interceptor: Interceptor) =
-            apply { interceptors.add(interceptor) }
+
+        fun interceptors(interceptors: List<Interceptor>) = apply {
+            this.interceptors.addAll(interceptors)
+        }
+
+        fun certificatePinners(certificatePinners: List<CertificatePinner>) = apply {
+            this.certificatePinners.addAll(certificatePinners)
+        }
 
         fun build(): OkHttpClient {
             val builder = OkHttpClient.Builder()
@@ -41,6 +49,10 @@ class HttpClient {
 
             interceptors.forEach { interceptor ->
                 builder.addInterceptor(interceptor)
+            }
+
+            certificatePinners.forEach { pin ->
+                builder.certificatePinner(pin)
             }
 
             if (ignoreSSL) {
