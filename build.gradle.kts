@@ -2,7 +2,6 @@ import AndroidConfiguration.COMPILE_SDK_VERSION
 import AndroidConfiguration.MIN_SDK_VERSION
 import BuildType.Companion.DEBUG
 import BuildType.Companion.RELEASE
-import dependencies.AndroidTestDependencies.TEST_RUNNER
 import dependencies.Dependencies.KOTLIN
 import dependencies.Dependencies.KTX_CORE
 import dependencies.Dependencies.LOGGING_INTERCEPTOR
@@ -55,9 +54,17 @@ android {
     testOptions.unitTests.isIncludeAndroidResources = true
 
     lintOptions {
-        disable("ObsoleteLintCustomCheck")
+        disable(
+            "ObsoleteLintCustomCheck",
+            "UnusedAttribute",
+            "VectorPath",
+            "Overdraw",
+            "IconLocation",
+            "RtlEnabled",
+            "RtlSymmetry"
+        )
+        isWarningsAsErrors = true
     }
-
 }
 
 dependencies {
@@ -76,5 +83,4 @@ dependencies {
     testImplementation(JUNIT)
     testImplementation(ROBOLECTRIC)
     testImplementation(MOCKITO)
-    androidTestImplementation(TEST_RUNNER)
 }
