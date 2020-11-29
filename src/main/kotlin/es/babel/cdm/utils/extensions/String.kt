@@ -31,6 +31,11 @@ fun String.isValidEmail() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 fun String.isValidPassword() = Pattern.compile(Validation.Pattern.PASSWORD)
     .matcher(this).matches()
 
+fun String.isValidPhone() = Pattern.compile(Validation.Pattern.PHONE).matcher(this).matches()
+
+fun String.isValidSpanishPhone() =
+    Pattern.compile(Validation.Pattern.SPANISH_PHONE).matcher(this).matches()
+
 @SuppressLint("DefaultLocale")
 fun String.capitalizeWords() =
     this.toLowerCase(Locale.getDefault()).split(BLANK)
