@@ -166,6 +166,41 @@ class StringTest {
     }
 
     @Test
+    fun isValidPhoneIsRight() {
+        assertTrue("1234".isValidPhone())
+        assertTrue("4444466666".isValidPhone())
+        assertTrue("12344568880".isValidPhone())
+        assertTrue("1234567891234".isValidPhone())
+    }
+
+    @Test
+    fun isValidPhoneIsWrong() {
+        assertFalse("".isValidPhone())
+        assertFalse("test".isValidPhone())
+        assertFalse("123".isValidPhone())
+        assertFalse("test123".isValidPhone())
+        assertFalse("123456789012345".isValidPhone())
+    }
+
+    @Test
+    fun isValidSpanishPhoneIsRight() {
+        assertTrue("123456789".isValidSpanishPhone())
+        assertTrue("000000000".isValidSpanishPhone())
+        assertTrue("666666666".isValidSpanishPhone())
+    }
+
+    @Test
+    fun isValidSpanishPhoneIsWrong() {
+        assertFalse("".isValidSpanishPhone())
+        assertFalse("4444466666".isValidSpanishPhone())
+        assertFalse("12344568880".isValidSpanishPhone())
+        assertFalse("1234567891234".isValidSpanishPhone())
+        assertFalse("1234".isValidSpanishPhone())
+        assertFalse("test".isValidSpanishPhone())
+        assertFalse("test1234".isValidSpanishPhone())
+    }
+
+    @Test
     fun capitalizeWordsIsRight() {
         assertEquals("Test", "test".capitalizeWords())
         assertEquals("Test", "TEST".capitalizeWords())
