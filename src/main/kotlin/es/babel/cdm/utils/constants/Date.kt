@@ -1,6 +1,9 @@
 package es.babel.cdm.utils.constants
 
 object Date {
+    const val MONTHS_IN_A_YEAR = 12
+    const val FIRST_DAY_OF_THE_MONTH = 1
+
     object Pattern {
         const val YEAR = "YYYY"
         const val MONTH = "MM"
@@ -15,6 +18,7 @@ object Date {
         const val MONTH_AND_DAY = "dd/MM"
         const val FULL_HOUR = "HH:mm:ss"
         const val HOUR_AND_MINUTE = "HH:mm"
+        const val MONTH_AND_YEAR = "MMMM YYYY"
     }
 
     object TimeZone {
