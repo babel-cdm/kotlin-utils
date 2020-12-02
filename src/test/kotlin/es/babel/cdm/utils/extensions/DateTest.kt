@@ -144,4 +144,18 @@ class DateTest() {
     fun secondIsWrong() {
         assertNotEquals("00", date.second())
     }
+
+    @Test
+    fun monthAndYearToDateIsRight() {
+        assertEquals(Date(1606777200000), monthAndYearToDate(month = 11, year = 2020))
+        assertEquals(Date(-2177452800000), monthAndYearToDate(month = 0, year = 1901))
+        assertEquals(Date(970351200000), monthAndYearToDate(month = 9, year = 2000))
+    }
+
+    @Test
+    fun monthAndYearToDateIsWrong() {
+        assertNotEquals(Date(1606777000000), monthAndYearToDate(month = 11, year = 2020))
+        assertNotEquals(Date(-2177452000000), monthAndYearToDate(month = 0, year = 1901))
+        assertNotEquals(Date(970351280000), monthAndYearToDate(month = 9, year = 2000))
+    }
 }
