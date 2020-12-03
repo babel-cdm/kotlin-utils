@@ -12,6 +12,10 @@ import java.util.TimeZone
 import java.util.regex.Pattern
 import timber.log.Timber
 
+const val COMMA = ","
+const val POINT = "."
+const val FORMAT = "%.2f"
+
 fun String.toDate(inputFormat: String, inputTimeZone: String? = null): Date? =
     kotlin.runCatching {
         SimpleDateFormat(inputFormat, Locale.getDefault()).also { simpleDateFormat ->
@@ -25,6 +29,14 @@ fun String.localeStringDateToUtcStringDate(inputFormat: String, outputFormat: St
 
 fun String.utcStringDateToLocaleStringDate(inputFormat: String, outputFormat: String): String? =
     this.toDate(inputFormat, UTC)?.toString(outputFormat)
+
+fun String.fromNumberToNumberWithPoint(): Float =
+    this.replace(COMMA, POINT).toFloat()
+
+fun String.fromNumberToNumberWithComma(): String {
+    FORMAT.format(this)
+    return this.replace(POINT, COMMA)
+}
 
 fun String.isValidEmail() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
