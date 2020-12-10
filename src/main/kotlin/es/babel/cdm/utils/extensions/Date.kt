@@ -1,5 +1,6 @@
 package es.babel.cdm.utils.extensions
 
+import es.babel.cdm.utils.constants.Date.FIRST_DAY_OF_THE_MONTH
 import es.babel.cdm.utils.constants.Date.Pattern.DAY
 import es.babel.cdm.utils.constants.Date.Pattern.DAY_OF_THE_WEEK
 import es.babel.cdm.utils.constants.Date.Pattern.HOUR
@@ -10,6 +11,7 @@ import es.babel.cdm.utils.constants.Date.Pattern.SECOND
 import es.babel.cdm.utils.constants.Date.Pattern.YEAR
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
 import java.util.TimeZone.getTimeZone
@@ -38,3 +40,6 @@ fun Date.hour(): String? = this.toString(HOUR)
 fun Date.minute(): String? = this.toString(MINUTE)
 
 fun Date.second(): String? = this.toString(SECOND)
+
+fun monthAndYearToDate(month: Int, year: Int): Date =
+    GregorianCalendar(year, month, FIRST_DAY_OF_THE_MONTH).time
