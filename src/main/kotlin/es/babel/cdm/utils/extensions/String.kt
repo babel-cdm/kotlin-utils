@@ -50,6 +50,12 @@ fun String.isValidPhone() = Pattern.compile(Validation.Pattern.PHONE).matcher(th
 fun String.isValidSpanishPhone() =
     Pattern.compile(Validation.Pattern.SPANISH_PHONE).matcher(this).matches()
 
+fun String.isValidDNI() = Pattern.compile(Validation.Pattern.DNI).matcher(this).matches()
+
+fun String.isValidNIE() = Pattern.compile(Validation.Pattern.NIE).matcher(this).matches()
+
+fun String.isValidCIF() = Pattern.compile(Validation.Pattern.CIF).matcher(this).matches()
+
 @SuppressLint("DefaultLocale")
 fun String.capitalizeWords() =
     this.toLowerCase(Locale.getDefault()).split(BLANK)
