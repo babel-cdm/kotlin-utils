@@ -1,7 +1,9 @@
 package es.babel.cdm.utils.extensions
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -23,5 +25,17 @@ class IntegerTest {
         assertNotEquals(20, 200.inHalf())
         assertNotEquals(10, (-10).inHalf())
         assertNotEquals(2, 0.inHalf())
+    }
+
+    @Test
+    fun toBooleanIsRight() {
+        assertTrue(1.toBoolean())
+    }
+
+    @Test
+    fun toBooleanIsWrong() {
+        assertFalse(0.toBoolean())
+        assertFalse(10.toBoolean())
+        assertFalse(10000.toBoolean())
     }
 }
