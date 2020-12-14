@@ -3,6 +3,8 @@ package es.babel.cdm.utils.constants
 object Date {
     const val MONTHS_IN_A_YEAR = 12
     const val FIRST_DAY_OF_THE_MONTH = 1
+    const val MILLISECONDS_IN_A_MINUTE = 60000L
+    val MINUTES_RANGE_IN_A_DAY = Pair(0, 1439)
 
     object Pattern {
         const val YEAR = "YYYY"
