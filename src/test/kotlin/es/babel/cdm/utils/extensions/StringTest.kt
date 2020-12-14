@@ -201,6 +201,54 @@ class StringTest {
     }
 
     @Test
+    fun isValidDNIRight() {
+        assertTrue("11111111A".isValidDNI())
+        assertTrue("11111111a".isValidDNI())
+        assertTrue("12345678Z".isValidDNI())
+    }
+
+    @Test
+    fun isValidDNIWrong() {
+        assertFalse("".isValidDNI())
+        assertFalse("11111111 a".isValidDNI())
+        assertFalse("11111 A".isValidDNI())
+        assertFalse("a1111111A".isValidDNI())
+    }
+
+    @Test
+    fun isValidCIFRight() {
+        assertTrue("a11111111".isValidCIF())
+        assertTrue("A11111111".isValidCIF())
+        assertTrue("Z12345678".isValidCIF())
+    }
+
+    @Test
+    fun isValidCIFWrong() {
+        assertFalse("".isValidCIF())
+        assertFalse("a 11111111".isValidCIF())
+        assertFalse("A 11111111".isValidCIF())
+        assertFalse("A11111".isValidCIF())
+        assertFalse("a111111A".isValidCIF())
+    }
+
+    @Test
+    fun isValidNIERight() {
+        assertTrue("X1111111b".isValidNIE())
+        assertTrue("x1111111a".isValidNIE())
+        assertTrue("Z1234567d".isValidNIE())
+        assertTrue("z1234567A".isValidNIE())
+    }
+
+    @Test
+    fun isValidNIEWrong() {
+        assertFalse("".isValidNIE())
+        assertFalse("a1111111b".isValidNIE())
+        assertFalse("X11111111ssss".isValidNIE())
+        assertFalse("z11111d".isValidNIE())
+        assertFalse("x111111Aa".isValidNIE())
+    }
+
+    @Test
     fun capitalizeWordsIsRight() {
         assertEquals("Test", "test".capitalizeWords())
         assertEquals("Test", "TEST".capitalizeWords())
