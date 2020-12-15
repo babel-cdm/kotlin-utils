@@ -213,6 +213,7 @@ class StringTest {
         assertFalse("11111111 a".isValidDNI())
         assertFalse("11111 A".isValidDNI())
         assertFalse("a1111111A".isValidDNI())
+        assertFalse("a1111¨111A".isValidDNI())
     }
 
     @Test
@@ -229,6 +230,7 @@ class StringTest {
         assertFalse("A 11111111".isValidCIF())
         assertFalse("A11111".isValidCIF())
         assertFalse("a111111A".isValidCIF())
+        assertFalse("a1111*11A".isValidCIF())
     }
 
     @Test
@@ -246,6 +248,7 @@ class StringTest {
         assertFalse("X11111111ssss".isValidNIE())
         assertFalse("z11111d".isValidNIE())
         assertFalse("x111111Aa".isValidNIE())
+        assertFalse("x111!111Aa".isValidNIE())
     }
 
     @Test
