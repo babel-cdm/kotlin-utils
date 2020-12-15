@@ -40,3 +40,7 @@ fun String.isValidSpanishPhone() =
 fun String.capitalizeWords() =
     this.toLowerCase(Locale.getDefault()).split(BLANK)
         .joinToString(separator = BLANK) { it.capitalize() }
+
+fun String.toPriceString(): String {
+    return String.format(es.babel.cdm.utils.constants.String.Format.PRICE, this)
+}

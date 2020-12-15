@@ -221,4 +221,20 @@ class StringTest {
         assertNotEquals("@Test", "@test".capitalizeWords())
         assertNotEquals("@Test TEST", "@test Test".capitalizeWords())
     }
+
+    @Test
+    fun toPriceStringIsRight() {
+        assertEquals("0 €", "0".toPriceString())
+        assertEquals("50 €", "50".toPriceString())
+        assertEquals("1000 €", "1000".toPriceString())
+        assertEquals("999999 €", "999999".toPriceString())
+    }
+
+    @Test
+    fun toPriceStringIsWrong() {
+        assertNotEquals("50", "50".toPriceString())
+        assertNotEquals("50€", "50".toPriceString())
+        assertNotEquals("50,00€", "50".toPriceString())
+        assertNotEquals("50.00", "50".toPriceString())
+    }
 }
