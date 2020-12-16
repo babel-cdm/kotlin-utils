@@ -202,9 +202,8 @@ class StringTest {
 
     @Test
     fun isValidDNIRight() {
-        assertTrue("11111111A".isValidDNI())
-        assertTrue("11111111a".isValidDNI())
-        assertTrue("12345678Z".isValidDNI())
+        assertTrue("54566045V".isValidDNI())
+        assertTrue("54566045v".isValidDNI())
     }
 
     @Test
@@ -217,28 +216,9 @@ class StringTest {
     }
 
     @Test
-    fun isValidCIFRight() {
-        assertTrue("a11111111".isValidCIF())
-        assertTrue("A11111111".isValidCIF())
-        assertTrue("Z12345678".isValidCIF())
-    }
-
-    @Test
-    fun isValidCIFWrong() {
-        assertFalse("".isValidCIF())
-        assertFalse("a 11111111".isValidCIF())
-        assertFalse("A 11111111".isValidCIF())
-        assertFalse("A11111".isValidCIF())
-        assertFalse("a111111A".isValidCIF())
-        assertFalse("a1111*11A".isValidCIF())
-    }
-
-    @Test
     fun isValidNIERight() {
-        assertTrue("X1111111b".isValidNIE())
-        assertTrue("x1111111a".isValidNIE())
-        assertTrue("Z1234567d".isValidNIE())
-        assertTrue("z1234567A".isValidNIE())
+        assertTrue("X7454868Q".isValidNIE())
+        assertTrue("x7454868Q".isValidNIE())
     }
 
     @Test

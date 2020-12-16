@@ -1,7 +1,6 @@
 package es.babel.cdm.utils.extensions
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.util.Patterns
 import es.babel.cdm.utils.constants.Date.TimeZone.UTC
 import es.babel.cdm.utils.constants.String.BLANK
@@ -38,19 +37,37 @@ fun String.isValidSpanishPhone() =
     Pattern.compile(Validation.Pattern.SPANISH_PHONE).matcher(this).matches()
 
 fun String.isValidDNI(): Boolean {
-    val letters = arrayOf("T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X",
-        "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E")
-    if(Pattern.compile(Validation.Pattern.DNI).matcher(this).matches()){
-       val letter =  letters[(this.substring(0,8)).toInt() % 23]
-       if(letter == this.last().toUpperCase().toString())
-           return true
+    val letters = arrayOf(
+        "T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X",
+        "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"
+    )
+    if (Pattern.compile(Validation.Pattern.DNI).matcher(this).matches()) {
+        val letter = letters[(this.substring(0, 8)).toInt() % 23]
+        if (letter == this.last().toUpperCase().toString())
+            return true
     }
     return false
 }
 
-fun String.isValidNIE() = Pattern.compile(Validation.Pattern.NIE).matcher(this).matches()
+fun String.isValidNIE(): Boolean {
+    val letters = arrayOf(
+        "T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X",
+        "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"
+    )
 
-fun String.isValidCIF() = Pattern.compile(Validation.Pattern.CIF).matcher(this).matches()
+    if (Pattern.compile(Validation.Pattern.NIE).matcher(this).matches()) {
+        var nie = ""
+        when (this.first().toUpperCase().toString()) {
+            "X" -> nie = this.replace(this.first().toString(), "0")
+            "Y" -> nie = this.replace(this.first().toString(), "1")
+            "Z" -> nie = this.replace(this.first().toString(), "2")
+        }
+        val letter = letters[(nie.substring(0, 8)).toInt() % 23]
+        if (letter == nie.last().toUpperCase().toString())
+            return true
+    }
+    return false
+}
 
 @SuppressLint("DefaultLocale")
 fun String.capitalizeWords() =
