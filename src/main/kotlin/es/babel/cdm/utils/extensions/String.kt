@@ -4,7 +4,13 @@ import android.annotation.SuppressLint
 import android.util.Patterns
 import es.babel.cdm.utils.constants.Date.TimeZone.UTC
 import es.babel.cdm.utils.constants.String.BLANK
+import es.babel.cdm.utils.constants.String.COMMA
+import es.babel.cdm.utils.constants.String.DIACRITICAL_MARKS
+import es.babel.cdm.utils.constants.String.EMPTY
+import es.babel.cdm.utils.constants.String.POINT
+import es.babel.cdm.utils.constants.String.TWO_DECIMALS
 import es.babel.cdm.utils.constants.Validation
+import java.text.Normalizer
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -26,6 +32,14 @@ fun String.localeStringDateToUtcStringDate(inputFormat: String, outputFormat: St
 fun String.utcStringDateToLocaleStringDate(inputFormat: String, outputFormat: String): String? =
     this.toDate(inputFormat, UTC)?.toString(outputFormat)
 
+fun String.fromNumberToNumberWithPoint(): Float =
+    this.replace(COMMA, POINT).toFloat()
+
+fun String.fromNumberToNumberWithComma(): String {
+    TWO_DECIMALS.format(this)
+    return this.replace(POINT, COMMA)
+}
+
 fun String.isValidEmail() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 fun String.isValidPassword() = Pattern.compile(Validation.Pattern.PASSWORD)
@@ -44,3 +58,8 @@ fun String.capitalizeWords() =
 fun String.toPriceString(): String {
     return String.format(es.babel.cdm.utils.constants.String.Format.PRICE, this)
 }
+
+fun String.normalizeText() = Normalizer.normalize(
+    this,
+    Normalizer.Form.NFD
+).replace(DIACRITICAL_MARKS.toRegex(), EMPTY)
