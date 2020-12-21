@@ -237,4 +237,14 @@ class StringTest {
         assertNotEquals("50,00€", "50".toPriceString())
         assertNotEquals("50.00", "50".toPriceString())
     }
+
+    @Test
+    fun toNormalizedStrings() {
+        assertEquals("a", "á".normalizeText())
+        assertEquals("e", "é".normalizeText())
+        assertEquals("i", "í".normalizeText())
+        assertEquals("o", "ó".normalizeText())
+        assertEquals("u", "ú".normalizeText())
+        assertEquals("n", "ñ".normalizeText())
+    }
 }
