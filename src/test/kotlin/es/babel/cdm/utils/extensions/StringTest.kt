@@ -201,6 +201,37 @@ class StringTest {
     }
 
     @Test
+    fun isValidDNIRight() {
+        assertTrue("54566045V".isValidDNI())
+        assertTrue("54566045v".isValidDNI())
+    }
+
+    @Test
+    fun isValidDNIWrong() {
+        assertFalse("".isValidDNI())
+        assertFalse("11111111 a".isValidDNI())
+        assertFalse("11111 A".isValidDNI())
+        assertFalse("a1111111A".isValidDNI())
+        assertFalse("a1111¨111A".isValidDNI())
+    }
+
+    @Test
+    fun isValidNIERight() {
+        assertTrue("X7454868Q".isValidNIE())
+        assertTrue("x7454868Q".isValidNIE())
+    }
+
+    @Test
+    fun isValidNIEWrong() {
+        assertFalse("".isValidNIE())
+        assertFalse("a1111111b".isValidNIE())
+        assertFalse("X11111111ssss".isValidNIE())
+        assertFalse("z11111d".isValidNIE())
+        assertFalse("x111111Aa".isValidNIE())
+        assertFalse("x111!111Aa".isValidNIE())
+    }
+
+    @Test
     fun capitalizeWordsIsRight() {
         assertEquals("Test", "test".capitalizeWords())
         assertEquals("Test", "TEST".capitalizeWords())

@@ -10,6 +10,17 @@ import es.babel.cdm.utils.constants.String.EMPTY
 import es.babel.cdm.utils.constants.String.POINT
 import es.babel.cdm.utils.constants.String.TWO_DECIMALS
 import es.babel.cdm.utils.constants.Validation
+import es.babel.cdm.utils.constants.Validation.Document.CALCULATE_LETTER
+import es.babel.cdm.utils.constants.Validation.Document.DOCUMENT_LETTERS
+import es.babel.cdm.utils.constants.Validation.Document.EMPTY_DOCUMENT
+import es.babel.cdm.utils.constants.Validation.Document.END_DOCUMENT
+import es.babel.cdm.utils.constants.Validation.Document.START_DOCUMENT
+import es.babel.cdm.utils.constants.Validation.Document.X_LETTER
+import es.babel.cdm.utils.constants.Validation.Document.X_LETTER_TO_NUMBER_STRING
+import es.babel.cdm.utils.constants.Validation.Document.Y_LETTER
+import es.babel.cdm.utils.constants.Validation.Document.Y_LETTER_TO_NUMBER_STRING
+import es.babel.cdm.utils.constants.Validation.Document.Z_LETTER
+import es.babel.cdm.utils.constants.Validation.Document.Z_LETTER_TO_NUMBER_STRING
 import java.text.Normalizer
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -32,13 +43,10 @@ fun String.localeStringDateToUtcStringDate(inputFormat: String, outputFormat: St
 fun String.utcStringDateToLocaleStringDate(inputFormat: String, outputFormat: String): String? =
     this.toDate(inputFormat, UTC)?.toString(outputFormat)
 
-fun String.fromNumberToNumberWithPoint(): Float =
-    this.replace(COMMA, POINT).toFloat()
+fun String.fromNumberToNumberWithPoint(): Float = replace(COMMA, POINT).toFloat()
 
-fun String.fromNumberToNumberWithComma(): String {
-    TWO_DECIMALS.format(this)
-    return this.replace(POINT, COMMA)
-}
+fun String.fromNumberToNumberWithComma(): String =
+    TWO_DECIMALS.format(this).replace(POINT, COMMA)
 
 fun String.isValidEmail() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
@@ -49,6 +57,38 @@ fun String.isValidPhone() = Pattern.compile(Validation.Pattern.PHONE).matcher(th
 
 fun String.isValidSpanishPhone() =
     Pattern.compile(Validation.Pattern.SPANISH_PHONE).matcher(this).matches()
+
+fun String.isValidDNI(): Boolean {
+    return (Pattern.compile(Validation.Pattern.DNI).matcher(this).matches()) && DOCUMENT_LETTERS[
+        (
+            substring(
+                START_DOCUMENT, END_DOCUMENT
+            )
+            ).toInt() % CALCULATE_LETTER
+    ] == last().toUpperCase().toString()
+}
+
+fun String.isValidNIE(): Boolean {
+    return if (Pattern.compile(Validation.Pattern.NIE).matcher(this).matches()) {
+        val nie = when (first().toUpperCase().toString()) {
+            X_LETTER -> replace(first().toString(), X_LETTER_TO_NUMBER_STRING)
+            Y_LETTER -> replace(first().toString(), Y_LETTER_TO_NUMBER_STRING)
+            Z_LETTER -> replace(first().toString(), Z_LETTER_TO_NUMBER_STRING)
+            else -> EMPTY_DOCUMENT
+        }
+        (
+            DOCUMENT_LETTERS[
+                (
+                    nie.substring(
+                        START_DOCUMENT, END_DOCUMENT
+                    )
+                    ).toInt() % CALCULATE_LETTER
+            ] == nie.last()
+                .toUpperCase()
+                .toString()
+            )
+    } else false
+}
 
 @SuppressLint("DefaultLocale")
 fun String.capitalizeWords() =
