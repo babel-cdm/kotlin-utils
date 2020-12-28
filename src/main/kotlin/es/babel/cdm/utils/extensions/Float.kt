@@ -1,8 +1,7 @@
 package es.babel.cdm.utils.extensions
 
-import es.babel.cdm.utils.constants.Float.Format.TWO_DECIMALS
 import es.babel.cdm.utils.constants.String.COMMA
 import es.babel.cdm.utils.constants.String.POINT
 
-fun Float.fromNumberToNumberWithComma(): String =
-    TWO_DECIMALS.format(this).replace(POINT, COMMA)
+fun Float.fromNumberToNumberWithComma(decimals: String): String =
+    decimals.format(this).replace(POINT, COMMA)
