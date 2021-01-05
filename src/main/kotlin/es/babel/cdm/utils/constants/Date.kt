@@ -10,6 +10,7 @@ object Date {
         const val YEAR = "YYYY"
         const val MONTH = "MM"
         const val MONTH_OF_THE_YEAR = "MMMM"
+        const val SHORT_MONTH_OF_THE_YEAR = "MMM"
         const val DAY = "dd"
         const val DAY_OF_THE_WEEK = "EEEE"
         const val HOUR = "HH"
