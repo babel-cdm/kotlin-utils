@@ -8,6 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import javax.net.ssl.TrustManager
 
 class Retrofit {
 
@@ -17,6 +18,7 @@ class Retrofit {
         private var baseUrl: String = DEFAULT_BASE_URL
         private var ignoreSSL: Boolean = true
         private var interceptors: List<Interceptor> = listOf()
+        private var trustManagers: List<TrustManager> = emptyList()
         private val certificatePinners = mutableListOf<CertificatePinner>()
 
         fun httpLoggingInterceptorLevel(level: HttpLoggingInterceptor.Level) =
@@ -40,6 +42,10 @@ class Retrofit {
             certificatePinners.add(CertificatePinner.Builder().add(host, *pins).build())
         }
 
+        fun trustManagers(trustManagers: List<TrustManager>) = apply {
+            this.trustManagers = trustManagers
+        }
+
         fun build(): Retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -57,6 +63,7 @@ class Retrofit {
                 HttpClient.Builder()
                     .ignoreSSL(ignoreSSL)
                     .certificatePinners(certificatePinners)
+                    .trustManagers(trustManagers)
                     .interceptors(interceptors + httpLoggingInterceptor)
                     .build()
             )

@@ -10,25 +10,14 @@ import javax.net.ssl.X509TrustManager
 import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import java.security.SecureRandom
 
 class HttpClient {
 
     class Builder(
         private var ignoreSSL: Boolean = true,
         private var interceptors: MutableList<Interceptor> = mutableListOf(),
-        private var trustManagers: Array<TrustManager> = arrayOf(object : X509TrustManager {
-            @SuppressLint("TrustAllX509TrustManager")
-            override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-                // Nothing to do
-            }
-
-            @SuppressLint("TrustAllX509TrustManager")
-            override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-                // Nothing to do
-            }
-
-            override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-        }),
+        private var trustManagers: MutableList<TrustManager> = mutableListOf(),
         private var certificatePinners: MutableList<CertificatePinner> = mutableListOf()
     ) {
         fun ignoreSSL(ignoreSSL: Boolean) = apply { this.ignoreSSL = ignoreSSL }
@@ -39,6 +28,10 @@ class HttpClient {
 
         fun certificatePinners(certificatePinners: List<CertificatePinner>) = apply {
             this.certificatePinners.addAll(certificatePinners)
+        }
+
+        fun trustManagers(trustManagers: List<TrustManager>) = apply {
+            this.trustManagers.addAll(trustManagers)
         }
 
         fun build(): OkHttpClient {
@@ -55,16 +48,23 @@ class HttpClient {
                 builder.certificatePinner(pin)
             }
 
-            if (ignoreSSL) {
-                val sslContext = SSLContext.getInstance(SSL_PROTOCOL)
-                sslContext.init(null, trustManagers, java.security.SecureRandom())
+            val sslContext = SSLContext.getInstance(SSL_PROTOCOL)
+            sslContext.init(null, trustManagers.toTypedArray(), SecureRandom())
 
+            if (ignoreSSL) {
                 builder
                     .sslSocketFactory(
                         sslContext.socketFactory,
-                        trustManagers.first() as X509TrustManager
+                        emptyTrustManager
                     )
                     .hostnameVerifier(HostnameVerifier { _, _ -> true })
+            } else {
+                if (trustManagers.isNotEmpty()) {
+                    builder.sslSocketFactory(
+                        sslContext.socketFactory,
+                        trustManagers.first() as X509TrustManager
+                    )
+                }
             }
 
             return builder.build()
@@ -76,5 +76,19 @@ class HttpClient {
         const val READ_TIMEOUT_SECONDS = 90L
         const val WRITE_TIMEOUT_SECONDS = 90L
         const val SSL_PROTOCOL = "SSL"
+
+        private val emptyTrustManager = object : X509TrustManager {
+            @SuppressLint("TrustAllX509TrustManager")
+            override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+                // Nothing to do
+            }
+
+            @SuppressLint("TrustAllX509TrustManager")
+            override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+                // Nothing to do
+            }
+
+            override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
+        }
     }
 }
