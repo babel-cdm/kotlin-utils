@@ -96,6 +96,16 @@ class DateTest() {
     }
 
     @Test
+    fun shortMonthOfTheYearIsRight() {
+        assertEquals("Oct", date.shortMonthOfTheYear())
+    }
+
+    @Test
+    fun shortMonthOfTheYearIsWrong() {
+        assertNotEquals("April", date.shortMonthOfTheYear())
+    }
+
+    @Test
     fun dayIsRight() {
         assertEquals("13", date.day())
     }

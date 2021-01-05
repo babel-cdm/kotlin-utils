@@ -8,6 +8,7 @@ import es.babel.cdm.utils.constants.Date.Pattern.MINUTE
 import es.babel.cdm.utils.constants.Date.Pattern.MONTH
 import es.babel.cdm.utils.constants.Date.Pattern.MONTH_OF_THE_YEAR
 import es.babel.cdm.utils.constants.Date.Pattern.SECOND
+import es.babel.cdm.utils.constants.Date.Pattern.SHORT_MONTH_OF_THE_YEAR
 import es.babel.cdm.utils.constants.Date.Pattern.YEAR
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -30,6 +31,8 @@ fun Date.year(): String? = this.toString(YEAR)
 fun Date.month(): String? = this.toString(MONTH)
 
 fun Date.monthOfTheYear(): String? = this.toString(MONTH_OF_THE_YEAR)
+
+fun Date.shortMonthOfTheYear(): String? = this.toString(SHORT_MONTH_OF_THE_YEAR)
 
 fun Date.day(): String? = this.toString(DAY)
 
