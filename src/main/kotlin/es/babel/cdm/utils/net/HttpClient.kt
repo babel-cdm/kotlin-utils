@@ -1,6 +1,7 @@
 package es.babel.cdm.utils.net
 
 import android.annotation.SuppressLint
+import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
@@ -10,7 +11,6 @@ import javax.net.ssl.X509TrustManager
 import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import java.security.SecureRandom
 
 class HttpClient {
 

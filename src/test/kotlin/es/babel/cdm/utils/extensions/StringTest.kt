@@ -278,4 +278,11 @@ class StringTest {
         assertEquals("u", "ú".normalizeText())
         assertEquals("n", "ñ".normalizeText())
     }
+
+    @Test
+    fun replaceDotsByColon() {
+        assertEquals("11:11", "11.11".replaceDotsByColon())
+        assertEquals("11:11", "11:11".replaceDotsByColon())
+        assertEquals("Test:test", "Test.test".replaceDotsByColon())
+    }
 }

@@ -6,7 +6,8 @@ object String {
     const val COMMA = ","
     const val EMPTY = ""
     const val DIACRITICAL_MARKS = "[\\p{InCombiningDiacriticalMarks}]+"
-    const val POINT = "."
+    const val DOT = "."
+    const val COLON = ":"
     const val TWO_DECIMALS = "%.2f"
 
     object Format {

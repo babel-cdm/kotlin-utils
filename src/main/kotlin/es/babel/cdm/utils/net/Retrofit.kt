@@ -2,13 +2,13 @@ package es.babel.cdm.utils.net
 
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import javax.net.ssl.TrustManager
 import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import javax.net.ssl.TrustManager
 
 class Retrofit {
 
