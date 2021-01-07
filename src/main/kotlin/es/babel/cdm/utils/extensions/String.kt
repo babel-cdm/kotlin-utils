@@ -4,10 +4,11 @@ import android.annotation.SuppressLint
 import android.util.Patterns
 import es.babel.cdm.utils.constants.Date.TimeZone.UTC
 import es.babel.cdm.utils.constants.String.BLANK
+import es.babel.cdm.utils.constants.String.COLON
 import es.babel.cdm.utils.constants.String.COMMA
 import es.babel.cdm.utils.constants.String.DIACRITICAL_MARKS
 import es.babel.cdm.utils.constants.String.EMPTY
-import es.babel.cdm.utils.constants.String.POINT
+import es.babel.cdm.utils.constants.String.DOT
 import es.babel.cdm.utils.constants.String.TWO_DECIMALS
 import es.babel.cdm.utils.constants.Validation
 import es.babel.cdm.utils.constants.Validation.Document.CALCULATE_LETTER
@@ -43,10 +44,10 @@ fun String.localeStringDateToUtcStringDate(inputFormat: String, outputFormat: St
 fun String.utcStringDateToLocaleStringDate(inputFormat: String, outputFormat: String): String? =
     this.toDate(inputFormat, UTC)?.toString(outputFormat)
 
-fun String.fromNumberToNumberWithPoint(): Float = replace(COMMA, POINT).toFloat()
+fun String.fromNumberToNumberWithPoint(): Float = replace(COMMA, DOT).toFloat()
 
 fun String.fromNumberToNumberWithComma(): String =
-    TWO_DECIMALS.format(this).replace(POINT, COMMA)
+    TWO_DECIMALS.format(this).replace(DOT, COMMA)
 
 fun String.isValidEmail() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
@@ -98,6 +99,8 @@ fun String.capitalizeWords() =
 fun String.toPriceString(): String {
     return String.format(es.babel.cdm.utils.constants.String.Format.PRICE, this)
 }
+
+fun String.replaceDotsByColon() = replace(DOT, COLON)
 
 fun String.normalizeText() = Normalizer.normalize(
     this,
