@@ -13,5 +13,6 @@ object String {
 
     object Format {
         const val PRICE = "%s €"
+        const val POINTS = "%s pts"
     }
 }

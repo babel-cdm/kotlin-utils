@@ -100,6 +100,10 @@ fun String.toPriceString(): String {
     return String.format(es.babel.cdm.utils.constants.String.Format.PRICE, this)
 }
 
+fun String.toPointsString(): String {
+    return String.format(es.babel.cdm.utils.constants.String.Format.POINTS, this)
+}
+
 fun String.replaceDotsByColon() = replace(DOT, COLON)
 
 fun String.normalizeText() = Normalizer.normalize(
