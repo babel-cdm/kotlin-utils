@@ -285,4 +285,9 @@ class StringTest {
         assertEquals("11:11", "11:11".replaceDotsByColon())
         assertEquals("Test:test", "Test.test".replaceDotsByColon())
     }
+
+    @Test
+    fun toPointsString() {
+        assertEquals("123 pts", "123".toPointsString())
+    }
 }
