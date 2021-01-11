@@ -9,6 +9,7 @@ object String {
     const val DOT = "."
     const val COLON = ":"
     const val TWO_DECIMALS = "%.2f"
+    const val BAR = "/"
 
     object Format {
         const val PRICE = "%s €"
