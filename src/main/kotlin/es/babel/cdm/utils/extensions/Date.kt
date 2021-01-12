@@ -26,23 +26,24 @@ fun Date.toString(outputFormat: String, outputTimeZone: String? = null): String?
         }.format(this)
     }.onFailure { error -> Timber.e(error) }.getOrNull()
 
-fun Date.year(): String? = this.toString(YEAR)
+fun Date.year(outputTimeZone: String? = null) = toString(YEAR, outputTimeZone)
 
-fun Date.month(): String? = this.toString(MONTH)
+fun Date.month(outputTimeZone: String? = null) = toString(MONTH, outputTimeZone)
 
-fun Date.monthOfTheYear(): String? = this.toString(MONTH_OF_THE_YEAR)
+fun Date.monthOfTheYear(outputTimeZone: String? = null) =
+    toString(MONTH_OF_THE_YEAR, outputTimeZone)
 
-fun Date.shortMonthOfTheYear(): String? = this.toString(SHORT_MONTH_OF_THE_YEAR)
+fun Date.day(outputTimeZone: String? = null) = toString(DAY, outputTimeZone)
 
-fun Date.day(): String? = this.toString(DAY)
+fun Date.shortMonthOfTheYear() = toString(SHORT_MONTH_OF_THE_YEAR)
 
-fun Date.dayOfTheWeek(): String? = this.toString(DAY_OF_THE_WEEK)
+fun Date.dayOfTheWeek(outputTimeZone: String? = null) = toString(DAY_OF_THE_WEEK, outputTimeZone)
 
-fun Date.hour(): String? = this.toString(HOUR)
+fun Date.hour(outputTimeZone: String? = null) = toString(HOUR, outputTimeZone)
 
-fun Date.minute(): String? = this.toString(MINUTE)
+fun Date.minute(outputTimeZone: String? = null) = toString(MINUTE, outputTimeZone)
 
-fun Date.second(): String? = this.toString(SECOND)
+fun Date.second(outputTimeZone: String? = null) = toString(SECOND, outputTimeZone)
 
 fun monthAndYearToDate(month: Int, year: Int): Date =
     GregorianCalendar(year, month, FIRST_DAY_OF_THE_MONTH).time
