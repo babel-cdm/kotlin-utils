@@ -10,13 +10,10 @@ import es.babel.cdm.utils.constants.Date.Pattern.MONTH_OF_THE_YEAR
 import es.babel.cdm.utils.constants.Date.Pattern.SECOND
 import es.babel.cdm.utils.constants.Date.Pattern.SHORT_MONTH_OF_THE_YEAR
 import es.babel.cdm.utils.constants.Date.Pattern.YEAR
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.GregorianCalendar
-import java.util.Locale
-import java.util.TimeZone
-import java.util.TimeZone.getTimeZone
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.TimeZone.getTimeZone
 
 fun Date.toString(outputFormat: String, outputTimeZone: String? = null): String? =
     kotlin.runCatching {
@@ -26,23 +23,23 @@ fun Date.toString(outputFormat: String, outputTimeZone: String? = null): String?
         }.format(this)
     }.onFailure { error -> Timber.e(error) }.getOrNull()
 
-fun Date.year(): String? = this.toString(YEAR)
+fun Date.year(outputTimeZone: String? = null): String? = this.toString(YEAR, outputTimeZone)
 
-fun Date.month(): String? = this.toString(MONTH)
+fun Date.month(outputTimeZone: String? = null): String? = this.toString(MONTH, outputTimeZone)
 
-fun Date.monthOfTheYear(): String? = this.toString(MONTH_OF_THE_YEAR)
+fun Date.monthOfTheYear(outputTimeZone: String? = null): String? = this.toString(MONTH_OF_THE_YEAR, outputTimeZone)
+
+fun Date.day(outputTimeZone: String? = null): String? = this.toString(DAY, outputTimeZone)
 
 fun Date.shortMonthOfTheYear(): String? = this.toString(SHORT_MONTH_OF_THE_YEAR)
 
-fun Date.day(): String? = this.toString(DAY)
+fun Date.dayOfTheWeek(outputTimeZone: String? = null): String? = this.toString(DAY_OF_THE_WEEK, outputTimeZone)
 
-fun Date.dayOfTheWeek(): String? = this.toString(DAY_OF_THE_WEEK)
+fun Date.hour(outputTimeZone: String? = null): String? = this.toString(HOUR, outputTimeZone)
 
-fun Date.hour(): String? = this.toString(HOUR)
+fun Date.minute(outputTimeZone: String? = null): String? = this.toString(MINUTE, outputTimeZone)
 
-fun Date.minute(): String? = this.toString(MINUTE)
-
-fun Date.second(): String? = this.toString(SECOND)
+fun Date.second(outputTimeZone: String? = null): String? = this.toString(SECOND, outputTimeZone)
 
 fun monthAndYearToDate(month: Int, year: Int): Date =
     GregorianCalendar(year, month, FIRST_DAY_OF_THE_MONTH).time
