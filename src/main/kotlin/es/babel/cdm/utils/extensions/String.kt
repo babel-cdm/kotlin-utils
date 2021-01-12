@@ -6,9 +6,11 @@ import es.babel.cdm.utils.constants.Date.TimeZone.UTC
 import es.babel.cdm.utils.constants.String.BLANK
 import es.babel.cdm.utils.constants.String.COLON
 import es.babel.cdm.utils.constants.String.COMMA
+import es.babel.cdm.utils.constants.String.DASH
 import es.babel.cdm.utils.constants.String.DIACRITICAL_MARKS
 import es.babel.cdm.utils.constants.String.DOT
 import es.babel.cdm.utils.constants.String.EMPTY
+import es.babel.cdm.utils.constants.String.Format.PRICE
 import es.babel.cdm.utils.constants.String.TWO_DECIMALS
 import es.babel.cdm.utils.constants.Validation
 import es.babel.cdm.utils.constants.Validation.Document.CALCULATE_LETTER
@@ -92,13 +94,10 @@ fun String.isValidNIE(): Boolean {
 }
 
 @SuppressLint("DefaultLocale")
-fun String.capitalizeWords() =
-    this.toLowerCase(Locale.getDefault()).split(BLANK)
-        .joinToString(separator = BLANK) { it.capitalize() }
+fun String.capitalizeWords() = toLowerCase(Locale.getDefault()).split(BLANK, DASH)
+    .joinToString(separator = BLANK) { it.capitalize() }
 
-fun String.toPriceString(): String {
-    return String.format(es.babel.cdm.utils.constants.String.Format.PRICE, this)
-}
+fun String.toPriceString() = String.format(PRICE, this)
 
 fun String.toPointsString(): String {
     return String.format(es.babel.cdm.utils.constants.String.Format.POINTS, this)
