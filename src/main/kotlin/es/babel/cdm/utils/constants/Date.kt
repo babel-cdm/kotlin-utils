@@ -7,7 +7,7 @@ object Date {
     val MINUTES_RANGE_IN_A_DAY = Pair(0, 1439)
 
     object Pattern {
-        const val YEAR = "YYYY"
+        const val YEAR = "yyyy"
         const val MONTH = "MM"
         const val MONTH_OF_THE_YEAR = "MMMM"
         const val SHORT_MONTH_OF_THE_YEAR = "MMM"
@@ -22,7 +22,7 @@ object Date {
         const val MONTH_AND_DAY = "dd/MM"
         const val FULL_HOUR = "HH:mm:ss"
         const val HOUR_AND_MINUTE = "HH:mm"
-        const val MONTH_AND_YEAR = "MMMM YYYY"
+        const val MONTH_AND_YEAR = "MMMM yyyy"
         const val DAY_AND_MONTH = "EEEE dd MMMM"
     }
 
