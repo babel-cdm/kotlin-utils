@@ -8,6 +8,9 @@ object Validation {
         const val SPANISH_PHONE = "^[0-9]{9}\$"
         const val NIE = "^[XxYyZz]{1}[0-9]{7}[a-zA-Z]{1}\$"
         const val DNI = "^\\d{8}[a-zA-Z]{1}\$"
+        const val DEFAULT_TEXT_DATA_ALLOWED_CHARACTERS =
+            "aáàâäbcçdeéèêëfghiíìîïjklmnñoóòöôpqrstuúùûüvwxyzßAÁÀÄÂBCÇDEÉÈÊËFGHIÍÌÎÏJKLMNÑOÓÒÖÔPQRSTUÚÙÜÛVWXYZẞ\' "
+        const val DEFAULT_PHONE_DATA_ALLOWED_CHARACTERS = "0123456789"
     }
 
     object Document {
