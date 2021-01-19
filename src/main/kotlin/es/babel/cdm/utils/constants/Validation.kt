@@ -9,7 +9,8 @@ object Validation {
         const val NIE = "^[XxYyZz]{1}[0-9]{7}[a-zA-Z]{1}\$"
         const val DNI = "^\\d{8}[a-zA-Z]{1}\$"
         const val DEFAULT_TEXT_DATA_ALLOWED_CHARACTERS =
-            "aáàâäbcçdeéèêëfghiíìîïjklmnñoóòöôpqrstuúùûüvwxyzßAÁÀÄÂBCÇDEÉÈÊËFGHIÍÌÎÏJKLMNÑOÓÒÖÔPQRSTUÚÙÜÛVWXYZẞ\' "
+            "aáàâäbcçdeéèêëfghiíìîïjklmnñoóòöôpqrstuúùûüvwxyzßAÁÀÄÂBCÇDEÉÈÊËFGHIÍÌÎÏJ" +
+                "KLMNÑOÓÒÖÔPQRSTUÚÙÜÛVWXYZẞ\' "
         const val DEFAULT_PHONE_DATA_ALLOWED_CHARACTERS = "0123456789"
     }
 
