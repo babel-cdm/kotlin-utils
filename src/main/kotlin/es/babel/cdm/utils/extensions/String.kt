@@ -11,6 +11,7 @@ import es.babel.cdm.utils.constants.String.DIACRITICAL_MARKS
 import es.babel.cdm.utils.constants.String.DOT
 import es.babel.cdm.utils.constants.String.EMPTY
 import es.babel.cdm.utils.constants.String.Format.PRICE
+import es.babel.cdm.utils.constants.String.HEXADECIMAL_CHARS
 import es.babel.cdm.utils.constants.String.TWO_DECIMALS
 import es.babel.cdm.utils.constants.Validation
 import es.babel.cdm.utils.constants.Validation.Document.CALCULATE_LETTER
@@ -109,3 +110,16 @@ fun String.normalizeText() = Normalizer.normalize(
     this,
     Normalizer.Form.NFD
 ).replace(DIACRITICAL_MARKS.toRegex(), EMPTY)
+
+fun String.hexStringToByteArray(): ByteArray {
+    val len = this.length
+    val result = ByteArray(len / 2)
+    (0 until len step 2).forEach { i ->
+        result[i.shr(1)] =
+            HEXADECIMAL_CHARS.indexOf(this[i])
+                .shl(4)
+                .or(HEXADECIMAL_CHARS.indexOf(this[i + 1]))
+                .toByte()
+    }
+    return result
+}

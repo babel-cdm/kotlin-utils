@@ -10,6 +10,7 @@ object String {
     const val COLON = ":"
     const val TWO_DECIMALS = "%.2f"
     const val BAR = "/"
+    const val HEXADECIMAL_CHARS = "0123456789ABCDEF"
 
     object Format {
         const val PRICE = "%s €"
