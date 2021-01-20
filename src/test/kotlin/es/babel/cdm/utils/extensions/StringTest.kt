@@ -287,7 +287,11 @@ class StringTest {
     }
 
     @Test
-    fun toPointsString() {
-        assertEquals("123 pts", "123".toPointsString())
+    fun toNumberWithDots() {
+        assertEquals("123", "123".toNumberWithDots())
+        assertEquals("123", "123,00".toNumberWithDots())
+        assertEquals("12.312.313", "12312313,000".toNumberWithDots())
+        assertEquals("12.300", "12300".toNumberWithDots())
+        assertEquals("0", "a".toNumberWithDots())
     }
 }

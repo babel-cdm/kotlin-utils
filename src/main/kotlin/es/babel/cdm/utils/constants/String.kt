@@ -11,9 +11,11 @@ object String {
     const val TWO_DECIMALS = "%.2f"
     const val BAR = "/"
     const val HEXADECIMAL_CHARS = "0123456789ABCDEF"
+    const val DEFAULT_DOUBLE = 0.0
 
     object Format {
         const val PRICE = "%s €"
         const val POINTS = "%s pts"
+        const val WHOLE_NUMBER_FORMAT = "#,###"
     }
 }
