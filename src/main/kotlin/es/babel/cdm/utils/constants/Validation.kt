@@ -12,6 +12,8 @@ object Validation {
             "aáàâäbcçdeéèêëfghiíìîïjklmnñoóòöôpqrstuúùûüvwxyzßAÁÀÄÂBCÇDEÉÈÊËFGHIÍÌÎÏJ" +
                 "KLMNÑOÓÒÖÔPQRSTUÚÙÜÛVWXYZẞ\' "
         const val DEFAULT_PHONE_DATA_ALLOWED_CHARACTERS = "0123456789"
+        const val DEFAULT_TEXT_ALPHANUMERIC_DOCUMENT_ALLOWED_CHARACTERS = "ABCDEFGHIJKLMNOP" +
+            "QRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
     }
 
     object Document {
