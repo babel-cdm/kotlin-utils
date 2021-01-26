@@ -294,4 +294,35 @@ class StringTest {
         assertEquals("12.300", "12300".toNumberWithDots())
         assertEquals("0", "a".toNumberWithDots())
     }
+
+    @Test
+    fun isDniRight() {
+        assertTrue("54566045V".isDni())
+        assertTrue("54566045v".isDni())
+    }
+
+    @Test
+    fun isDniWrong() {
+        assertFalse("".isDni())
+        assertFalse("11111111 a".isDni())
+        assertFalse("11111 A".isDni())
+        assertFalse("a1111111A".isDni())
+        assertFalse("a1111¨111A".isDni())
+    }
+
+    @Test
+    fun isNieRight() {
+        assertTrue("X7454868Q".isNie())
+        assertTrue("x7454868Q".isNie())
+    }
+
+    @Test
+    fun isNieWrong() {
+        assertFalse("".isNie())
+        assertFalse("a1111111b".isNie())
+        assertFalse("X11111111ssss".isNie())
+        assertFalse("z11111d".isNie())
+        assertFalse("x111111Aa".isNie())
+        assertFalse("x111!111Aa".isNie())
+    }
 }
