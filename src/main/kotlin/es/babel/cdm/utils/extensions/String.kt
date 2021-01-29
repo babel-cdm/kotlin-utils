@@ -75,6 +75,10 @@ fun String.isValidDNI(): Boolean {
     ] == last().toUpperCase().toString()
 }
 
+fun String.isDni(): Boolean = matches(Validation.Pattern.DNI.toRegex())
+
+fun String.isNie(): Boolean = matches(Validation.Pattern.NIE.toRegex())
+
 fun String.isValidNIE(): Boolean {
     return if (Pattern.compile(Validation.Pattern.NIE).matcher(this).matches()) {
         val nie = when (first().toUpperCase().toString()) {
@@ -130,3 +134,5 @@ fun String.hexStringToByteArray(): ByteArray {
     }
     return result
 }
+
+fun String?.checkNull(defaultValue: String = EMPTY) = this ?: defaultValue
