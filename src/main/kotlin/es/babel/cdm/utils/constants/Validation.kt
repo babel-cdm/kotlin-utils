@@ -4,10 +4,11 @@ object Validation {
     object Pattern {
         const val PASSWORD =
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d\$€\\[\\]<>@#&*¿?¡!|\\/\\\\\\-_]{8,16}\$"
-        const val PHONE = "^[0-9]{4,14}\$"
-        const val SPANISH_PHONE = "^[0-9]{9}\$"
+        const val PHONE = "^[0-9]{4,15}\$"
+        const val SPANISH_PHONE = "^[6,7]{1}[0-9]{8}\$"
         const val NIE = "^[XxYyZz]{1}[0-9]{7}[a-zA-Z]{1}\$"
         const val DNI = "^\\d{8}[a-zA-Z]{1}\$"
+        const val EMAIL = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         const val DEFAULT_TEXT_DATA_ALLOWED_CHARACTERS =
             "aáàâäbcçdeéèêëfghiíìîïjklmnñoóòöôpqrstuúùûüvwxyzßAÁÀÄÂBCÇDEÉÈÊËFGHIÍÌÎÏJ" +
                 "KLMNÑOÓÒÖÔPQRSTUÚÙÜÛVWXYZẞ\' "

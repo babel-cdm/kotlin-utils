@@ -132,8 +132,8 @@ class StringTest {
     @Test
     fun isValidEmailIsRight() {
         assertTrue("test@test.com".isValidEmail())
-        assertTrue("a@a.a".isValidEmail())
-        assertTrue("bb@b.b".isValidEmail())
+        assertTrue("a@a.aa".isValidEmail())
+        assertTrue("bb@b.bb".isValidEmail())
         assertTrue("ccc@cc.ccc".isValidEmail())
     }
 
@@ -141,6 +141,8 @@ class StringTest {
     fun isValidEmailIsWrong() {
         assertFalse("".isValidEmail())
         assertFalse("a".isValidEmail())
+        assertFalse("a@a.a".isValidEmail())
+        assertFalse("bb@b.b".isValidEmail())
         assertFalse("b@b".isValidEmail())
         assertFalse("cc.ccc".isValidEmail())
     }
@@ -179,18 +181,20 @@ class StringTest {
         assertFalse("test".isValidPhone())
         assertFalse("123".isValidPhone())
         assertFalse("test123".isValidPhone())
-        assertFalse("123456789012345".isValidPhone())
+        assertFalse("1234567890123456".isValidPhone())
     }
 
     @Test
     fun isValidSpanishPhoneIsRight() {
-        assertTrue("123456789".isValidSpanishPhone())
-        assertTrue("000000000".isValidSpanishPhone())
+        assertTrue("623456789".isValidSpanishPhone())
+        assertTrue("700000000".isValidSpanishPhone())
         assertTrue("666666666".isValidSpanishPhone())
     }
 
     @Test
     fun isValidSpanishPhoneIsWrong() {
+        assertFalse("123456789".isValidSpanishPhone())
+        assertFalse("000000000".isValidSpanishPhone())
         assertFalse("".isValidSpanishPhone())
         assertFalse("4444466666".isValidSpanishPhone())
         assertFalse("12344568880".isValidSpanishPhone())
