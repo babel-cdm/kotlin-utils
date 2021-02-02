@@ -1,7 +1,6 @@
 package es.babel.cdm.utils.extensions
 
 import android.annotation.SuppressLint
-import android.util.Patterns
 import es.babel.cdm.utils.constants.Date.TimeZone.UTC
 import es.babel.cdm.utils.constants.String.BLANK
 import es.babel.cdm.utils.constants.String.COLON
@@ -55,7 +54,8 @@ fun String.fromNumberToNumberWithPoint(): Float = replace(COMMA, DOT).toFloat()
 fun String.fromNumberToNumberWithComma(): String =
     TWO_DECIMALS.format(this).replace(DOT, COMMA)
 
-fun String.isValidEmail() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
+fun String.isValidEmail() = Pattern.compile(Validation.Pattern.EMAIL)
+    .matcher(this).matches()
 
 fun String.isValidPassword() = Pattern.compile(Validation.Pattern.PASSWORD)
     .matcher(this).matches()
