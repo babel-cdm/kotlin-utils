@@ -33,4 +33,17 @@ object Validation {
             "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"
         )
     }
+
+    object LuhnValidation {
+        const val LUHN_DEFAULT_SUM = 0
+        const val LUHN_NEXT_CHARACTER = 1
+        const val LUHN_MODULE_OF_TWO = 2
+        const val LUHN_MODULE_OF_TEN = 10
+        const val LUHN_MODULE_DEFAULT_RESULT = 0
+        const val LUHN_MULTIPLY_BY_TWO = 2
+        const val LUHN_CHARACTER_ZERO = 0
+        const val LUHN_CHARACTER_ONE = 1
+        const val LUHN_CHARACTER_TWO = 2
+        const val LUHN_VALUE_LIMIT = 9
+    }
 }

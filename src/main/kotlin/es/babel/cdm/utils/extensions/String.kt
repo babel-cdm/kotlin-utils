@@ -26,6 +26,16 @@ import es.babel.cdm.utils.constants.Validation.Document.Y_LETTER
 import es.babel.cdm.utils.constants.Validation.Document.Y_LETTER_TO_NUMBER_STRING
 import es.babel.cdm.utils.constants.Validation.Document.Z_LETTER
 import es.babel.cdm.utils.constants.Validation.Document.Z_LETTER_TO_NUMBER_STRING
+import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_CHARACTER_ONE
+import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_CHARACTER_TWO
+import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_CHARACTER_ZERO
+import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_DEFAULT_SUM
+import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_MODULE_DEFAULT_RESULT
+import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_MODULE_OF_TEN
+import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_MODULE_OF_TWO
+import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_MULTIPLY_BY_TWO
+import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_NEXT_CHARACTER
+import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_VALUE_LIMIT
 import java.text.DecimalFormat
 import java.text.Normalizer
 import java.text.SimpleDateFormat
@@ -136,3 +146,26 @@ fun String.hexStringToByteArray(): ByteArray {
 }
 
 fun String?.checkNull(defaultValue: String = EMPTY) = this ?: defaultValue
+
+fun String.validateFormulaLuhn(): Boolean {
+    var sum = LUHN_DEFAULT_SUM
+    indices.forEach {
+        var value = substring(it, it + LUHN_NEXT_CHARACTER).toInt()
+        if (it % LUHN_MODULE_OF_TWO == LUHN_MODULE_DEFAULT_RESULT) {
+            value *= LUHN_MULTIPLY_BY_TWO
+            if (value > LUHN_VALUE_LIMIT) {
+                val valueS = value.toString()
+                value = valueS.substring(
+                    LUHN_CHARACTER_ZERO,
+                    LUHN_CHARACTER_ONE
+                )
+                    .toInt() + valueS.substring(
+                    LUHN_CHARACTER_ONE,
+                    LUHN_CHARACTER_TWO
+                ).toInt()
+            }
+        }
+        sum += value
+    }
+    return sum % LUHN_MODULE_OF_TEN == LUHN_MODULE_DEFAULT_RESULT
+}
