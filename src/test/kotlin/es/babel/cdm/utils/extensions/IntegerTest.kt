@@ -3,6 +3,7 @@ package es.babel.cdm.utils.extensions
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,5 +38,11 @@ class IntegerTest {
         assertFalse(0.toBoolean())
         assertFalse(10.toBoolean())
         assertFalse(10000.toBoolean())
+    }
+
+    @Test
+    fun checkNull() {
+        assertNotNull(1.checkNull())
+        assertNotNull(10.checkNull())
     }
 }
