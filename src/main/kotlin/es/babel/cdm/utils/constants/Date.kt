@@ -20,6 +20,7 @@ object Date {
         const val FULL_DATE_AND_HOUR = "dd/MM/yyyy HH:mm:ss"
         const val FULL_DATE_HOUR_AND_MINUTE = "dd/MM/yyyy HH:mm"
         const val FULL_DATE_DASH = "dd-MM-yyyy"
+        const val FULL_DATE_DASH_REVERSED = "yyyy-MM-dd"
         const val FULL_DATE_DASH_HOUR_AND_MINUTE = "dd-MM-yyyy HH:mm"
         const val MONTH_AND_DAY = "dd/MM"
         const val FULL_HOUR = "HH:mm:ss"
