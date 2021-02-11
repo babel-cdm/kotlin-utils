@@ -12,6 +12,8 @@ object String {
     const val BAR = "/"
     const val HEXADECIMAL_CHARS = "0123456789ABCDEF"
     const val DEFAULT_DOUBLE = 0.0
+    const val TRUE = "true"
+    const val FALSE = "false"
 
     object Format {
         const val PRICE = "%s €"
