@@ -10,9 +10,11 @@ import es.babel.cdm.utils.constants.String.DEFAULT_DOUBLE
 import es.babel.cdm.utils.constants.String.DIACRITICAL_MARKS
 import es.babel.cdm.utils.constants.String.DOT
 import es.babel.cdm.utils.constants.String.EMPTY
+import es.babel.cdm.utils.constants.String.FALSE
 import es.babel.cdm.utils.constants.String.Format.PRICE
 import es.babel.cdm.utils.constants.String.Format.WHOLE_NUMBER_FORMAT
 import es.babel.cdm.utils.constants.String.HEXADECIMAL_CHARS
+import es.babel.cdm.utils.constants.String.TRUE
 import es.babel.cdm.utils.constants.String.TWO_DECIMALS
 import es.babel.cdm.utils.constants.Validation
 import es.babel.cdm.utils.constants.Validation.Document.CALCULATE_LETTER
@@ -169,3 +171,10 @@ fun String.validateFormulaLuhn(): Boolean {
     }
     return sum % LUHN_MODULE_OF_TEN == LUHN_MODULE_DEFAULT_RESULT
 }
+
+fun String.toBoolean() =
+    when (toLowerCase(Locale.getDefault())) {
+        TRUE -> true
+        FALSE -> false
+        else -> false
+    }
