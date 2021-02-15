@@ -77,7 +77,7 @@ class HttpClient {
         const val WRITE_TIMEOUT_SECONDS = 90L
         const val SSL_PROTOCOL = "SSL"
 
-        private val emptyTrustManager = object : X509TrustManager {
+        val emptyTrustManager = object : X509TrustManager {
             @SuppressLint("TrustAllX509TrustManager")
             override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
                 // Nothing to do
