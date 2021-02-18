@@ -1,6 +1,8 @@
 package es.babel.cdm.utils.extensions
 
 import android.annotation.SuppressLint
+import android.text.Spanned
+import androidx.core.text.HtmlCompat
 import es.babel.cdm.utils.constants.Date.TimeZone.UTC
 import es.babel.cdm.utils.constants.String.BLANK
 import es.babel.cdm.utils.constants.String.COLON
@@ -178,3 +180,10 @@ fun String.toBoolean() =
         FALSE -> false
         else -> false
     }
+
+@SuppressLint("DefaultLocale")
+fun String.capitalizeDate(): String =
+    capitalize().replace(DOT, EMPTY)
+
+fun String.convertFromHtml(): Spanned =
+    HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_LEGACY)
