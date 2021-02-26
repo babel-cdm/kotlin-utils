@@ -1,7 +1,11 @@
 package es.babel.cdm.utils.extensions
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Typeface
+import android.text.SpannableString
 import android.text.Spanned
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.HtmlCompat
 import es.babel.cdm.utils.constants.Date.TimeZone.UTC
 import es.babel.cdm.utils.constants.String.BLANK
@@ -40,6 +44,7 @@ import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_MODULE_OF_TWO
 import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_MULTIPLY_BY_TWO
 import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_NEXT_CHARACTER
 import es.babel.cdm.utils.constants.Validation.LuhnValidation.LUHN_VALUE_LIMIT
+import timber.log.Timber
 import java.text.DecimalFormat
 import java.text.Normalizer
 import java.text.SimpleDateFormat
@@ -47,7 +52,6 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import java.util.regex.Pattern
-import timber.log.Timber
 
 fun String.toDate(inputFormat: String, inputTimeZone: String? = null): Date? =
     kotlin.runCatching {
@@ -81,11 +85,11 @@ fun String.isValidSpanishPhone() =
 
 fun String.isValidDNI(): Boolean {
     return (Pattern.compile(Validation.Pattern.DNI).matcher(this).matches()) && DOCUMENT_LETTERS[
-        (
-            substring(
-                START_DOCUMENT, END_DOCUMENT
-            )
-            ).toInt() % CALCULATE_LETTER
+            (
+                    substring(
+                        START_DOCUMENT, END_DOCUMENT
+                    )
+                    ).toInt() % CALCULATE_LETTER
     ] == last().toUpperCase().toString()
 }
 
@@ -102,16 +106,16 @@ fun String.isValidNIE(): Boolean {
             else -> EMPTY_DOCUMENT
         }
         (
-            DOCUMENT_LETTERS[
-                (
-                    nie.substring(
-                        START_DOCUMENT, END_DOCUMENT
-                    )
-                    ).toInt() % CALCULATE_LETTER
-            ] == nie.last()
-                .toUpperCase()
-                .toString()
-            )
+                DOCUMENT_LETTERS[
+                        (
+                                nie.substring(
+                                    START_DOCUMENT, END_DOCUMENT
+                                )
+                                ).toInt() % CALCULATE_LETTER
+                ] == nie.last()
+                    .toUpperCase()
+                    .toString()
+                )
     } else false
 }
 
@@ -187,3 +191,25 @@ fun String.capitalizeDate(): String =
 
 fun String.convertFromHtml(): Spanned =
     HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+fun String.spannableString(
+    context: Context, spannableStringList: List<String>, spannableFont: Int
+): SpannableString {
+    return ResourcesCompat.getFont(context, spannableFont)?.let {
+        setSpannable(spannableStringList, it, context)
+    } ?: SpannableString(this)
+}
+
+private fun String.setSpannable(
+    spannableStringList: List<String>, spannableStyle: Typeface, context: Context
+): SpannableString {
+    val spannable = SpannableString(this)
+    spannableStringList.forEach {
+        spannable.setSpan(
+            Spannable(spannableStyle), indexOf(it),
+            indexOf(it) + it.length,
+            android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+    return spannable
+}
