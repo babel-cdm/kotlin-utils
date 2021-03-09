@@ -1,7 +1,11 @@
 package es.babel.cdm.utils.extensions
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Typeface
+import android.text.SpannableString
 import android.text.Spanned
+import android.text.style.TextAppearanceSpan
 import androidx.core.text.HtmlCompat
 import es.babel.cdm.utils.constants.Date.TimeZone.UTC
 import es.babel.cdm.utils.constants.String.BLANK
@@ -187,3 +191,48 @@ fun String.capitalizeDate(): String =
 
 fun String.convertFromHtml(): Spanned =
     HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+/**
+ * Default string style must be set in the xml layout.
+ * Returns a spannable text with custom font from a string.
+ *
+ * @param spannableStringList the list of strings to set the different style font
+ * @param typeface TypefaceStyle to set to custom string
+ */
+fun String.spannableStringCustomTypeface(
+    spannableStringList: List<String>,
+    typeface: Typeface
+): SpannableString {
+    val spannable = SpannableString(this)
+    spannableStringList.forEach {
+        spannable.setSpan(
+            Spannable(typeface), indexOf(it),
+            indexOf(it) + it.length,
+            android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+    return spannable
+}
+
+/**
+ * Default string style must be set in the xml layout.
+ * Returns a spannable text with custom style from a string.
+ *
+ * @param spannableStringList the list of strings to set the different style font
+ * @param style Style to set to custom string
+ */
+fun String.spannableStringCustomStyle(
+    context: Context,
+    spannableStringList: List<String>,
+    style: Int
+): SpannableString {
+    val spannable = SpannableString(this)
+    spannableStringList.forEach {
+        spannable.setSpan(
+            TextAppearanceSpan(context, style), indexOf(it),
+            indexOf(it) + it.length,
+            android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+    return spannable
+}
