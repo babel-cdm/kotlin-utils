@@ -8,6 +8,7 @@ object Date {
 
     object Pattern {
         const val YEAR = "yyyy"
+        const val SHORT_YEAR = "yy"
         const val MONTH = "MM"
         const val MONTH_OF_THE_YEAR = "MMMM"
         const val SHORT_MONTH_OF_THE_YEAR = "MMM"
