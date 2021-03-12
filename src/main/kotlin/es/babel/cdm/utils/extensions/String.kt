@@ -236,3 +236,9 @@ fun String.spannableStringCustomStyle(
     }
     return spannable
 }
+
+fun String.addDotAndBlank(): String = this + DOT + BLANK
+
+fun String.deleteSpaces(): String = replace(BLANK, EMPTY)
+
+fun String.joinStringWithSpace(second: String): String = this + BLANK + second

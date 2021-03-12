@@ -329,4 +329,19 @@ class StringTest {
         assertFalse("x111111Aa".isNie())
         assertFalse("x111!111Aa".isNie())
     }
+
+    @Test
+    fun addDotAndBlank() {
+        assertEquals("123. ", "123".addDotAndBlank())
+    }
+
+    @Test
+    fun deleteSpaces() {
+        assertEquals("123", " 1 2 3 ".deleteSpaces())
+    }
+
+    @Test
+    fun joinStringWithSpace() {
+        assertEquals("1 2", "1".joinStringWithSpace("2"))
+    }
 }
