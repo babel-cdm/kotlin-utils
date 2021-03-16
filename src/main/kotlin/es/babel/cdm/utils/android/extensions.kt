@@ -16,3 +16,21 @@ fun Context.openAppSettings(packageName: String) {
 
     startActivity(intent)
 }
+
+fun Context.openPlayStore(packageName: String) {
+    runCatching {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=$packageName")
+            )
+        )
+    }.recoverCatching {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+            )
+        )
+    }
+}
