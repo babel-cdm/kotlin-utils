@@ -21,9 +21,11 @@ class Encryptor {
         )
     }
 
-    fun decrypt(value: Model): String {
-        cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(value.iv))
-        return String(cipher.doFinal(value.bytes), Charsets.UTF_8)
+    fun decrypt(value: Model): String? {
+        return runCatching {
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(value.iv))
+            String(cipher.doFinal(value.bytes), Charsets.UTF_8)
+        }.getOrNull()
     }
 
     private fun getKey(): SecretKey {
