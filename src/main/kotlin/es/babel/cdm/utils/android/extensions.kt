@@ -34,3 +34,26 @@ fun Context.openPlayStore(packageName: String) {
         )
     }
 }
+
+fun Context.openWeb(url: String) {
+    startActivity(
+        Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    )
+}
+
+fun Context.openPhone(phoneNumber: String) {
+    val intent = Intent(Intent.ACTION_DIAL)
+    intent.data = Uri.parse("${OPEN_PHONE_KEY}$phoneNumber")
+    startActivity(intent)
+}
+
+fun Context.openEmail(email: String) {
+    val intent = Intent(Intent.ACTION_SENDTO)
+    intent.data = Uri.parse("$OPEN_MAIL_KEY$email")
+    intent.resolveActivity(packageManager)?.let {
+        startActivity(intent)
+    }
+}
+
+const val OPEN_PHONE_KEY = "tel:"
+const val OPEN_MAIL_KEY = "mailto:"
