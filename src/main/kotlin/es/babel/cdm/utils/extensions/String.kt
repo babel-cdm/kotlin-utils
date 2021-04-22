@@ -17,6 +17,7 @@ import es.babel.cdm.utils.constants.String.DIACRITICAL_MARKS
 import es.babel.cdm.utils.constants.String.DOT
 import es.babel.cdm.utils.constants.String.EMPTY
 import es.babel.cdm.utils.constants.String.FALSE
+import es.babel.cdm.utils.constants.String.Format.POINTS
 import es.babel.cdm.utils.constants.String.Format.PRICE
 import es.babel.cdm.utils.constants.String.Format.WHOLE_NUMBER_FORMAT
 import es.babel.cdm.utils.constants.String.HEXADECIMAL_CHARS
@@ -124,6 +125,8 @@ fun String.capitalizeWords() = toLowerCase(Locale.getDefault()).split(BLANK, DAS
     .joinToString(separator = BLANK) { it.capitalize() }
 
 fun String.toPriceString() = String.format(PRICE, this)
+
+fun String.toPointsString() = String.format(POINTS, this)
 
 fun String.toNumberWithDots(): String {
     val doubleValue = runCatching {
