@@ -28,6 +28,7 @@ object Date {
         const val HOUR_AND_MINUTE = "HH:mm"
         const val MONTH_AND_YEAR = "MMMM yyyy"
         const val DAY_AND_MONTH = "EEEE dd MMMM"
+        const val DAY_OF_WEEK_COMMA_DAY_OF_MONTH = "EEE, d 'de' MMM"
     }
 
     object TimeZone {
