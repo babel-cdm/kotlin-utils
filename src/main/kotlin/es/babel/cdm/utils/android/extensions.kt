@@ -47,13 +47,12 @@ fun Context.openPhone(phoneNumber: String) {
     startActivity(intent)
 }
 
-fun Context.openEmail(email: String) {
-    val intent = Intent(Intent.ACTION_SENDTO)
-    intent.data = Uri.parse("$OPEN_MAIL_KEY$email")
-    intent.resolveActivity(packageManager)?.let {
-        startActivity(intent)
-    }
+fun Context.openEmail(email: String, title: String) {
+    val emailIntent = Intent(
+        Intent.ACTION_SENDTO, Uri.fromParts(OPEN_MAIL_KEY, email, null)
+    )
+    startActivity(Intent.createChooser(emailIntent, title))
 }
 
 const val OPEN_PHONE_KEY = "tel:"
-const val OPEN_MAIL_KEY = "mailto:"
+const val OPEN_MAIL_KEY = "mailto"
