@@ -3,6 +3,7 @@ package es.babel.cdm.utils.extensions
 import es.babel.cdm.utils.constants.Date.FIRST_DAY_OF_THE_MONTH
 import es.babel.cdm.utils.constants.Date.Pattern.DAY
 import es.babel.cdm.utils.constants.Date.Pattern.DAY_OF_THE_WEEK
+import es.babel.cdm.utils.constants.Date.Pattern.FULL_DATE
 import es.babel.cdm.utils.constants.Date.Pattern.HOUR
 import es.babel.cdm.utils.constants.Date.Pattern.MINUTE
 import es.babel.cdm.utils.constants.Date.Pattern.MONTH
@@ -47,3 +48,6 @@ fun Date.second(outputTimeZone: String? = null) = toString(SECOND, outputTimeZon
 
 fun monthAndYearToDate(month: Int, year: Int): Date =
     GregorianCalendar(year, month, FIRST_DAY_OF_THE_MONTH).time
+
+fun Date.convertToTimezone(timezone: String): Date? =
+    toString(FULL_DATE)?.toDate(FULL_DATE, timezone)
