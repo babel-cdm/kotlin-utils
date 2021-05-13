@@ -2,6 +2,7 @@ import AndroidConfiguration.COMPILE_SDK_VERSION
 import AndroidConfiguration.MIN_SDK_VERSION
 import BuildType.Companion.DEBUG
 import BuildType.Companion.RELEASE
+import dependencies.Dependencies.COROUTINES
 import dependencies.Dependencies.KOTLIN
 import dependencies.Dependencies.KTX_CORE
 import dependencies.Dependencies.LOGGING_INTERCEPTOR
@@ -77,6 +78,7 @@ dependencies {
     implementation(Retrofit.GSON)
     implementation(Retrofit.SCALARS)
     implementation(Retrofit.COROUTINES_ADAPTER)
+    implementation(COROUTINES)
 
     implementation(LOGGING_INTERCEPTOR)
 
