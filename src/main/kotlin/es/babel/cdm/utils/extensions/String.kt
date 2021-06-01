@@ -245,3 +245,5 @@ fun String.addDotAndBlank(): String = this + DOT + BLANK
 fun String.deleteSpaces(): String = replace(BLANK, EMPTY)
 
 fun String.joinStringWithSpace(second: String): String = this + BLANK + second
+
+fun String.getNumbers(): String = filter { it.isDigit() }
