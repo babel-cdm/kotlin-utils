@@ -68,7 +68,8 @@ fun String.localeStringDateToUtcStringDate(inputFormat: String, outputFormat: St
 fun String.utcStringDateToLocaleStringDate(inputFormat: String, outputFormat: String): String? =
     this.toDate(inputFormat, UTC)?.toString(outputFormat)
 
-fun String.fromNumberToNumberWithPoint(): Float = replace(COMMA, DOT).toFloat()
+fun String.fromNumberToNumberWithPoint(): Float =
+    if (!isNullOrEmpty()) replace(COMMA, DOT).toFloat() else DEFAULT_DOUBLE.toFloat()
 
 fun String.fromNumberToNumberWithComma(): String =
     TWO_DECIMALS.format(this).replace(DOT, COMMA)
