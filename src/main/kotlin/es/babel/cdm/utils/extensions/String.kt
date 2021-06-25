@@ -248,3 +248,5 @@ fun String.deleteSpaces(): String = replace(BLANK, EMPTY)
 fun String.joinStringWithSpace(second: String): String = this + BLANK + second
 
 fun String.getNumbers(): String = filter { it.isDigit() }
+
+fun String.containsAny(keywords: List<String>): Boolean = keywords.any { it in this }
