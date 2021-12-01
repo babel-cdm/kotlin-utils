@@ -21,6 +21,14 @@ class Encryptor {
         )
     }
 
+    fun encrypt(value: ByteArray): Model {
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey)
+        return Model(
+            bytes = cipher.doFinal(value),
+            iv = cipher.iv
+        )
+    }
+
     fun decrypt(value: Model): String? {
         return runCatching {
             cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(value.iv))
@@ -28,6 +36,13 @@ class Encryptor {
         }.getOrNull()
     }
 
+    fun decryptByteArray(value: Model): ByteArray? {
+        return runCatching {
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(value.iv))
+            cipher.doFinal(value.bytes)
+        }.getOrNull()
+    }
+    
     private fun getKey(): SecretKey {
         val keyStore = KeyStore.getInstance(KEY_PROVIDER)
         keyStore.load(null)
