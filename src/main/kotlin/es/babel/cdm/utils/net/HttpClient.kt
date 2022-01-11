@@ -34,11 +34,11 @@ class HttpClient {
             this.trustManagers.addAll(trustManagers)
         }
 
-        fun build(): OkHttpClient {
+        fun build(shortTimeout: Boolean): OkHttpClient {
             val builder = OkHttpClient.Builder()
-                .connectTimeout(CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-                .readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-                .writeTimeout(WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                .connectTimeout(if (shortTimeout) CONNECT_SHORT_TIMEOUT_SECONDS else CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                .readTimeout(if (shortTimeout) READ_SHORT_TIMEOUT_SECONDS else READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                .writeTimeout(if (shortTimeout) WRITE_SHORT_TIMEOUT_SECONDS else WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
 
             interceptors.forEach { interceptor ->
                 builder.addInterceptor(interceptor)
@@ -75,6 +75,9 @@ class HttpClient {
         const val CONNECT_TIMEOUT_SECONDS = 90L
         const val READ_TIMEOUT_SECONDS = 90L
         const val WRITE_TIMEOUT_SECONDS = 90L
+        const val CONNECT_SHORT_TIMEOUT_SECONDS = 15L
+        const val READ_SHORT_TIMEOUT_SECONDS = 15L
+        const val WRITE_SHORT_TIMEOUT_SECONDS = 15L
         const val SSL_PROTOCOL = "SSL"
 
         val emptyTrustManager = object : X509TrustManager {

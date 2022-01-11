@@ -46,7 +46,7 @@ class Retrofit {
             this.trustManagers = trustManagers
         }
 
-        fun build(): Retrofit = Retrofit.Builder()
+        fun build(shortTimeout: Boolean? = false): Retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(
@@ -65,7 +65,7 @@ class Retrofit {
                     .certificatePinners(certificatePinners)
                     .trustManagers(trustManagers)
                     .interceptors(interceptors + httpLoggingInterceptor)
-                    .build()
+                    .build(shortTimeout = shortTimeout ?: false)
             )
             .build()
     }
