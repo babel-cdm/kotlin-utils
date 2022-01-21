@@ -42,7 +42,7 @@ class Encryptor {
             cipher.doFinal(value.bytes)
         }.getOrNull()
     }
-    
+
     private fun getKey(): SecretKey {
         val keyStore = KeyStore.getInstance(KEY_PROVIDER)
         keyStore.load(null)
