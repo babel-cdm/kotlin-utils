@@ -1,5 +1,6 @@
 package es.babel.cdm.utils.android.security
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Process
@@ -31,12 +32,13 @@ private fun findBinary(places: Array<String>, binaryName: String): Boolean {
 
 private fun findSuBinary(): Boolean = findBinary(Root.Su.BINARY_PLACES, Root.Su.BINARY_NAME)
 
+@SuppressLint("QueryPermissionsNeeded")
 private fun isMagiskInstalled(context: Context): Boolean {
     context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA).forEach {
-        if (it.packageName.toLowerCase(Locale.getDefault()).contains(Root.Magisk.LABEL) ||
-            it.sourceDir.toLowerCase(Locale.getDefault()).contains(Root.Magisk.LABEL) ||
+        if (it.packageName.lowercase(Locale.getDefault()).contains(Root.Magisk.LABEL) ||
+            it.sourceDir.lowercase(Locale.getDefault()).contains(Root.Magisk.LABEL) ||
             context.packageManager.getApplicationLabel(it)
-                .toString().toLowerCase(Locale.getDefault())
+                .toString().lowercase(Locale.getDefault())
                 .contains(Root.Magisk.LABEL)
         ) return true
     }

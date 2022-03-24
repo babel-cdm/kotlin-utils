@@ -72,15 +72,16 @@ class HttpClient {
     }
 
     companion object {
-        const val CONNECT_TIMEOUT_SECONDS = 90L
-        const val READ_TIMEOUT_SECONDS = 90L
-        const val WRITE_TIMEOUT_SECONDS = 90L
+        const val CONNECT_TIMEOUT_SECONDS = 60L
+        const val READ_TIMEOUT_SECONDS = 60L
+        const val WRITE_TIMEOUT_SECONDS = 60L
         const val CONNECT_SHORT_TIMEOUT_SECONDS = 15L
         const val READ_SHORT_TIMEOUT_SECONDS = 15L
         const val WRITE_SHORT_TIMEOUT_SECONDS = 15L
         const val SSL_PROTOCOL = "SSL"
 
-        val emptyTrustManager = object : X509TrustManager {
+        val emptyTrustManager = @SuppressLint("CustomX509TrustManager")
+        object : X509TrustManager {
             @SuppressLint("TrustAllX509TrustManager")
             override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
                 // Nothing to do
