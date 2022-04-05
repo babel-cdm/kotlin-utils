@@ -8,6 +8,7 @@ import android.text.Spanned
 import android.text.style.TextAppearanceSpan
 import androidx.core.text.HtmlCompat
 import es.babel.cdm.utils.constants.Date.TimeZone.UTC
+import es.babel.cdm.utils.constants.String.BAR
 import es.babel.cdm.utils.constants.String.BLANK
 import es.babel.cdm.utils.constants.String.COLON
 import es.babel.cdm.utils.constants.String.COMMA
@@ -92,7 +93,7 @@ fun String.isValidDNI(): Boolean {
                 START_DOCUMENT, END_DOCUMENT
             )
             ).toInt() % CALCULATE_LETTER
-    ] == last().toUpperCase().toString()
+    ] == last().uppercaseChar().toString()
 }
 
 fun String.isDni(): Boolean = matches(Validation.Pattern.DNI.toRegex())
@@ -101,7 +102,7 @@ fun String.isNie(): Boolean = matches(Validation.Pattern.NIE.toRegex())
 
 fun String.isValidNIE(): Boolean {
     return if (Pattern.compile(Validation.Pattern.NIE).matcher(this).matches()) {
-        val nie = when (first().toUpperCase().toString()) {
+        val nie = when (first().uppercaseChar().toString()) {
             X_LETTER -> replace(first().toString(), X_LETTER_TO_NUMBER_STRING)
             Y_LETTER -> replace(first().toString(), Y_LETTER_TO_NUMBER_STRING)
             Z_LETTER -> replace(first().toString(), Z_LETTER_TO_NUMBER_STRING)
@@ -115,15 +116,16 @@ fun String.isValidNIE(): Boolean {
                     )
                     ).toInt() % CALCULATE_LETTER
             ] == nie.last()
-                .toUpperCase()
+                .uppercaseChar()
                 .toString()
             )
     } else false
 }
 
-@SuppressLint("DefaultLocale")
-fun String.capitalizeWords() = toLowerCase(Locale.getDefault()).split(BLANK, DASH)
-    .joinToString(separator = BLANK) { it.capitalize() }
+fun String.capitalizeWords() = lowercase(Locale.getDefault()).split(BLANK)
+    .joinToString(separator = BLANK) { it.capitalize() }.split(BAR)
+    .joinToString(separator = BAR) { it.capitalize() }.split(DASH)
+    .joinToString(separator = DASH) { it.capitalize() }
 
 fun String.toPriceString() = String.format(PRICE, this)
 
@@ -183,11 +185,13 @@ fun String.validateFormulaLuhn(): Boolean {
 }
 
 fun String.toBoolean() =
-    when (toLowerCase(Locale.getDefault())) {
+    when (lowercase(Locale.getDefault())) {
         TRUE -> true
         FALSE -> false
         else -> false
     }
+
+fun String.capitalize() = replaceFirstChar(Char::titlecase)
 
 @SuppressLint("DefaultLocale")
 fun String.capitalizeDate(): String =
