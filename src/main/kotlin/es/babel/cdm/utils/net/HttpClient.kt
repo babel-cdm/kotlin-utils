@@ -75,9 +75,9 @@ class HttpClient {
         const val CONNECT_TIMEOUT_SECONDS = 60L
         const val READ_TIMEOUT_SECONDS = 60L
         const val WRITE_TIMEOUT_SECONDS = 60L
-        const val CONNECT_SHORT_TIMEOUT_SECONDS = 15L
-        const val READ_SHORT_TIMEOUT_SECONDS = 15L
-        const val WRITE_SHORT_TIMEOUT_SECONDS = 15L
+        const val CONNECT_SHORT_TIMEOUT_SECONDS = 30L
+        const val READ_SHORT_TIMEOUT_SECONDS = 30L
+        const val WRITE_SHORT_TIMEOUT_SECONDS = 30L
         const val SSL_PROTOCOL = "SSL"
 
         val emptyTrustManager = @SuppressLint("CustomX509TrustManager")
