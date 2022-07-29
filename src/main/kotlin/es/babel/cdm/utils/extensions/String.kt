@@ -253,4 +253,8 @@ fun String.joinStringWithSpace(second: String): String = this + BLANK + second
 
 fun String.getNumbers(): String = filter { it.isDigit() }
 
+fun String.getLetters(): String = filter { it.isLetter() }
+
 fun String.containsAny(keywords: List<String>): Boolean = keywords.any { it in this }
+
+fun String.removeCharacter(character: String): String = replace(character, EMPTY)
