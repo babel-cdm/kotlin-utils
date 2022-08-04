@@ -258,3 +258,5 @@ fun String.getLetters(): String = filter { it.isLetter() }
 fun String.containsAny(keywords: List<String>): Boolean = keywords.any { it in this }
 
 fun String.removeCharacter(character: String): String = replace(character, EMPTY)
+
+fun String.removeLeadingZeros() : String = if (this.isNotEmpty()) Integer.valueOf(this).toString() else this
