@@ -101,25 +101,18 @@ fun String.isDni(): Boolean = matches(Validation.Pattern.DNI.toRegex())
 fun String.isNie(): Boolean = matches(Validation.Pattern.NIE.toRegex())
 
 fun String.isValidNIE(): Boolean {
-    return if (Pattern.compile(Validation.Pattern.NIE).matcher(this).matches()) {
-        val nie = when (first().uppercaseChar().toString()) {
-            X_LETTER -> replace(first().toString(), X_LETTER_TO_NUMBER_STRING)
-            Y_LETTER -> replace(first().toString(), Y_LETTER_TO_NUMBER_STRING)
-            Z_LETTER -> replace(first().toString(), Z_LETTER_TO_NUMBER_STRING)
-            else -> EMPTY_DOCUMENT
-        }
-        (
-            DOCUMENT_LETTERS[
-                (
-                    nie.substring(
-                        START_DOCUMENT, END_DOCUMENT
-                    )
-                    ).toInt() % CALCULATE_LETTER
-            ] == nie.last()
-                .uppercaseChar()
-                .toString()
+    return (Pattern.compile(Validation.Pattern.NIE).matcher(this).matches()) && DOCUMENT_LETTERS[
+        (replaceFirstChar { first -> when (first.uppercaseChar().toString()) {
+            X_LETTER -> X_LETTER_TO_NUMBER_STRING
+            Y_LETTER -> Y_LETTER_TO_NUMBER_STRING
+            Z_LETTER -> Z_LETTER_TO_NUMBER_STRING
+            else -> this
+        } }
+            .substring(
+                START_DOCUMENT, END_DOCUMENT
             )
-    } else false
+            ).toInt() % CALCULATE_LETTER
+    ] == last().uppercaseChar().toString()
 }
 
 fun String.capitalizeWords() = lowercase(Locale.getDefault()).split(BLANK)

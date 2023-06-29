@@ -223,6 +223,12 @@ class StringTest {
     fun isValidNIERight() {
         assertTrue("X7454868Q".isValidNIE())
         assertTrue("x7454868Q".isValidNIE())
+
+        assertTrue("Y9446897Y".isValidNIE())
+
+        assertTrue("Y7290990G".isValidNIE())
+        assertTrue("Y5060870X".isValidNIE())
+        assertTrue("Z9887258T".isValidNIE())
     }
 
     @Test
