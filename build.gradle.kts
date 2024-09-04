@@ -17,11 +17,10 @@ plugins {
     id(Plugins.JACOCO)
     id(Plugins.JACOCO_REPORT)
     kotlin(Plugins.KOTLIN_ANDROID)
-    kotlin(Plugins.KOTLIN_ANDROID_EXTENSIONS)
 }
 
 android {
-    compileSdkVersion(COMPILE_SDK_VERSION)
+    compileSdk = COMPILE_SDK_VERSION
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -33,17 +32,17 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion(MIN_SDK_VERSION)
+        minSdk = MIN_SDK_VERSION
     }
 
     buildTypes {
         getByName(DEBUG) {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
-            isTestCoverageEnabled = BuildTypeDebug.isTestCoverageEnabled
+            enableUnitTestCoverage = BuildTypeDebug.isTestCoverageEnabled
         }
         getByName(RELEASE) {
             isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
-            isTestCoverageEnabled = BuildTypeRelease.isTestCoverageEnabled
+            enableUnitTestCoverage = BuildTypeRelease.isTestCoverageEnabled
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
@@ -54,17 +53,15 @@ android {
 
     testOptions.unitTests.isIncludeAndroidResources = true
 
-    lintOptions {
-        disable(
-            "ObsoleteLintCustomCheck",
-            "UnusedAttribute",
-            "VectorPath",
-            "Overdraw",
-            "IconLocation",
-            "RtlEnabled",
-            "RtlSymmetry"
-        )
-        isWarningsAsErrors = true
+    lint {
+        disable += "ObsoleteLintCustomCheck" +
+        "UnusedAttribute" +
+        "VectorPath" +
+        "Overdraw" +
+        "IconLocation" +
+        "RtlEnabled" +
+        "RtlSymmetry"
+        warningsAsErrors = true
     }
 
     testCoverage.jacocoVersion = "0.8.7"
