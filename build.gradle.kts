@@ -22,6 +22,10 @@ plugins {
 android {
     compileSdk = COMPILE_SDK_VERSION
 
+    if (gradle.gradleVersion >= "8.0") {
+        namespace = "es.babel.cdm.utils"
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
