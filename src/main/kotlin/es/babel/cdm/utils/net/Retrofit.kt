@@ -5,6 +5,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import javax.net.ssl.TrustManager
 import okhttp3.CertificatePinner
 import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -46,7 +47,13 @@ class Retrofit {
             this.trustManagers = trustManagers
         }
 
-        fun build(shortTimeout: Boolean? = false): Retrofit = Retrofit.Builder()
+        fun build(shortTimeout: Boolean? = false): Retrofit =
+            build(getOkHttpClient(shortTimeout = shortTimeout))
+
+        fun build(timeoutConfig: TimeoutConfig): Retrofit =
+            build(getOkHttpClient(timeoutConfig = timeoutConfig))
+
+        private fun build(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(
@@ -59,15 +66,20 @@ class Retrofit {
                 )
             )
             .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
-            .client(
-                HttpClient.Builder()
-                    .ignoreSSL(ignoreSSL)
-                    .certificatePinners(certificatePinners)
-                    .trustManagers(trustManagers)
-                    .interceptors(interceptors + httpLoggingInterceptor)
-                    .build(shortTimeout = shortTimeout ?: false)
-            )
+            .client(okHttpClient)
             .build()
+
+        private fun getOkHttpClient(shortTimeout: Boolean?): OkHttpClient =
+            getOkHttpClientBuilder().build(shortTimeout = shortTimeout ?: false)
+
+        private fun getOkHttpClient(timeoutConfig: TimeoutConfig): OkHttpClient =
+            getOkHttpClientBuilder().build(timeoutConfig)
+
+        private fun getOkHttpClientBuilder() = HttpClient.Builder()
+            .ignoreSSL(ignoreSSL)
+            .certificatePinners(certificatePinners)
+            .trustManagers(trustManagers)
+            .interceptors(interceptors + httpLoggingInterceptor)
     }
 
     companion object {

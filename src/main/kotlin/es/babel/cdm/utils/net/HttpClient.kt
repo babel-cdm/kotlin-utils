@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
@@ -34,12 +33,13 @@ class HttpClient {
             this.trustManagers.addAll(trustManagers)
         }
 
-        fun build(shortTimeout: Boolean): OkHttpClient {
-            val builder = OkHttpClient.Builder()
-                .connectTimeout(if (shortTimeout) CONNECT_SHORT_TIMEOUT_SECONDS else CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-                .readTimeout(if (shortTimeout) READ_SHORT_TIMEOUT_SECONDS else READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-                .writeTimeout(if (shortTimeout) WRITE_SHORT_TIMEOUT_SECONDS else WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+        fun build(shortTimeout: Boolean): OkHttpClient =
+            build(createOkHttpClientBuilder(shortTimeout = shortTimeout))
 
+        fun build(timeoutConfig: TimeoutConfig): OkHttpClient =
+            build(createOkHttpClientBuilder(timeoutConfig = timeoutConfig))
+
+        private fun build(builder: OkHttpClient.Builder): OkHttpClient {
             interceptors.forEach { interceptor ->
                 builder.addInterceptor(interceptor)
             }
@@ -57,7 +57,7 @@ class HttpClient {
                         sslContext.socketFactory,
                         emptyTrustManager
                     )
-                    .hostnameVerifier(HostnameVerifier { _, _ -> true })
+                    .hostnameVerifier { _, _ -> true }
             } else {
                 if (trustManagers.isNotEmpty()) {
                     builder.sslSocketFactory(
@@ -68,6 +68,17 @@ class HttpClient {
             }
 
             return builder.build()
+        }
+
+        private fun createOkHttpClientBuilder(shortTimeout: Boolean) = OkHttpClient.Builder()
+            .connectTimeout(if (shortTimeout) CONNECT_SHORT_TIMEOUT_SECONDS else CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .readTimeout(if (shortTimeout) READ_SHORT_TIMEOUT_SECONDS else READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .writeTimeout(if (shortTimeout) WRITE_SHORT_TIMEOUT_SECONDS else WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+
+        private fun createOkHttpClientBuilder(timeoutConfig: TimeoutConfig) = OkHttpClient.Builder().apply {
+            connectTimeout(timeoutConfig.connectTimeoutInSeconds, TimeUnit.SECONDS)
+            readTimeout(timeoutConfig.readTimeoutInSeconds, TimeUnit.SECONDS)
+            writeTimeout(timeoutConfig.writeTimeoutInSeconds, TimeUnit.SECONDS)
         }
     }
 
