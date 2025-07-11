@@ -68,12 +68,12 @@ private fun isAppBlackListedInstalled(
     runCatching {
         fis = FileInputStream(File(cwd))
         reader = BufferedReader(InputStreamReader(fis))
-        var str: String
+        var str: String?
         var count = STARTING_COUNT
         reader?.let { reader ->
             while (reader.readLine().also { str = it } != null) {
                 for (path in blackListedMountPaths) {
-                    if (str.contains(path)) {
+                    if (str?.contains(path) == true) {
                         Timber.d("Blacklisted - Path found $path")
                         count++
                     }
