@@ -47,13 +47,13 @@ class Retrofit {
             this.trustManagers = trustManagers
         }
 
-        fun build(shortTimeout: Boolean? = false): Retrofit =
-            build(getOkHttpClient(shortTimeout = shortTimeout))
+        fun build(shortTimeout: Boolean? = false, serializeNulls: Boolean = true): Retrofit =
+            build(getOkHttpClient(shortTimeout = shortTimeout), serializeNulls = serializeNulls)
 
-        fun build(timeoutConfig: TimeoutConfig): Retrofit =
-            build(getOkHttpClient(timeoutConfig = timeoutConfig))
+        fun build(timeoutConfig: TimeoutConfig, serializeNulls: Boolean = true): Retrofit =
+            build(getOkHttpClient(timeoutConfig = timeoutConfig), serializeNulls = serializeNulls)
 
-        private fun build(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+        private fun build(okHttpClient: OkHttpClient, serializeNulls: Boolean = true): Retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(
@@ -61,7 +61,11 @@ class Retrofit {
                     GsonBuilder()
                         .setPrettyPrinting()
                         .disableHtmlEscaping()
-                        .serializeNulls()
+                        .apply {
+                            if (serializeNulls) {
+                                serializeNulls()
+                            }
+                        }
                         .create()
                 )
             )
