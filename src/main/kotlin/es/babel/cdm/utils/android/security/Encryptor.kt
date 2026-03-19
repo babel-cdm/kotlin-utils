@@ -11,9 +11,9 @@ import javax.crypto.spec.IvParameterSpec
 class Encryptor {
 
     private val secretKey = getKey()
-    private val cipher = Cipher.getInstance(CIPHER_TRANSFORMATION)
 
     fun encrypt(value: String): Model {
+        val cipher = createCipher()
         cipher.init(Cipher.ENCRYPT_MODE, secretKey)
         return Model(
             bytes = cipher.doFinal(value.toByteArray(Charsets.UTF_8)),
@@ -22,6 +22,7 @@ class Encryptor {
     }
 
     fun encrypt(value: ByteArray): Model {
+        val cipher = createCipher()
         cipher.init(Cipher.ENCRYPT_MODE, secretKey)
         return Model(
             bytes = cipher.doFinal(value),
@@ -31,6 +32,7 @@ class Encryptor {
 
     fun decrypt(value: Model): String? {
         return runCatching {
+            val cipher = createCipher()
             cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(value.iv))
             String(cipher.doFinal(value.bytes), Charsets.UTF_8)
         }.getOrNull()
@@ -38,10 +40,13 @@ class Encryptor {
 
     fun decryptByteArray(value: Model): ByteArray? {
         return runCatching {
+            val cipher = createCipher()
             cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(value.iv))
             cipher.doFinal(value.bytes)
         }.getOrNull()
     }
+
+    private fun createCipher(): Cipher = Cipher.getInstance(CIPHER_TRANSFORMATION)
 
     private fun getKey(): SecretKey {
         val keyStore = KeyStore.getInstance(KEY_PROVIDER)
